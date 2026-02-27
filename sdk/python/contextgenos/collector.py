@@ -5,9 +5,9 @@ BaseCollector — the interface every ContextGenOS collector must implement.
 from __future__ import annotations
 
 import abc
-from typing import AsyncIterator
+from collections.abc import AsyncIterator
 
-from contextgenos.types import ContextItem, CollectorHealth
+from contextgenos.types import CollectorHealth, ContextItem
 
 
 class BaseCollector(abc.ABC):

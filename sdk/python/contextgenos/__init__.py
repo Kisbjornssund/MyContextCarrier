@@ -21,7 +21,7 @@ Quick start:
 """
 
 from contextgenos.collector import BaseCollector
-from contextgenos.types import ContextItem, CollectorHealth, Sensitivity
+from contextgenos.types import CollectorHealth, ContextItem, Sensitivity
 
 __version__ = "0.1.0"
 __all__ = [
