@@ -11,6 +11,7 @@ Ships in: v0.2
 from __future__ import annotations
 
 import os
+import platform
 from pathlib import Path
 
 from contextgenos import BaseCollector, CollectorHealth, ContextItem
@@ -31,19 +32,37 @@ class CalendarCollector(BaseCollector):
     version = "0.1.0"
     platforms = ["macos", "linux", "windows"]
 
-    DEFAULT_MACOS_CALENDAR_DIR = "~/Library/Calendars"
+    # Auto-discovery paths per platform (checked in order, all that exist are used)
+    _DISCOVERY_PATHS: dict[str, list[str]] = {
+        "Darwin": [
+            "~/Library/Calendars",                          # macOS Calendar app (iCloud, Google sync)
+        ],
+        "Linux": [
+            "~/.local/share/evolution/calendar",            # GNOME Evolution
+            "~/.local/share/gnome-calendar",                # GNOME Calendar
+            "~/.thunderbird",                               # Thunderbird (scanned recursively for .ics)
+            "~/.local/share/korganizer",                    # KDE Organizer
+        ],
+        "Windows": [
+            "~/AppData/Local/Packages",                     # Windows Calendar (UWP) — scanned for .ics
+            "~/AppData/Roaming/Thunderbird",                # Thunderbird on Windows
+        ],
+    }
 
     def _ical_paths(self) -> list[Path]:
         configured = self.config.get("ical_paths", [])
         if configured:
             return [Path(os.path.expanduser(p)) for p in configured]
 
-        # Auto-discover on macOS
-        cal_dir = Path(os.path.expanduser(self.DEFAULT_MACOS_CALENDAR_DIR))
-        if cal_dir.exists():
-            return list(cal_dir.rglob("*.ics"))
+        system = platform.system()
+        candidates = self._DISCOVERY_PATHS.get(system, [])
+        found: list[Path] = []
+        for raw in candidates:
+            base = Path(os.path.expanduser(raw))
+            if base.exists():
+                found.extend(base.rglob("*.ics"))
 
-        return []
+        return found
 
     async def collect(self) -> list[ContextItem]:
         # TODO: implement iCal parsing using the icalendar library
