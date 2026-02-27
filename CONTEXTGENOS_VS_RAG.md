@@ -1,8 +1,6 @@
 # ContextGenOS vs RAG: A Technical Clarification
 
-## *ContextGenOS Uses RAG. RAG Alone Is Not Enough.*
-
----
+## *ContextGenOS Uses RAG but RAG Alone Is Not Enough.*
 
 This is probably the most important technical question to answer clearly, because it will be the first thing asked by any engineer who reads the ContextGenOS documentation. The answer is nuanced but not complicated, and getting it right matters, both for intellectual honesty and for explaining why ContextGenOS is a genuinely new thing rather than a wrapper around an existing technique.
 
@@ -31,7 +29,7 @@ Inject documents into prompt context
 Model generates response grounded in retrieved documents
 ```
 
-RAG was designed primarily for **document question-answering** — the use case where you have a corpus of documents (a knowledge base, a codebase, a set of PDFs) and you want the model to answer questions about that corpus without hallucinating facts that aren't in it.
+RAG was designed primarily for **document question-answering**, the use case where you have a corpus of documents (a knowledge base, a codebase, a set of PDFs) and you want the model to answer questions about that corpus without hallucinating facts that aren't in it.
 
 It is an excellent technique for this use case. It is not, by itself, a personal context system. Here is why.
 
