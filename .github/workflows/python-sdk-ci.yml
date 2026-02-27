@@ -1,0 +1,74 @@
+name: Python SDK CI
+
+on:
+  push:
+    branches: [main, dev]
+    paths:
+      - "sdk/python/**"
+      - "collectors/**"
+  pull_request:
+    branches: [main]
+    paths:
+      - "sdk/python/**"
+      - "collectors/**"
+
+jobs:
+  test:
+    name: Test (Python ${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install uv
+        run: pip install uv
+
+      - name: Install dependencies
+        working-directory: sdk/python
+        run: uv pip install -e ".[dev]" --system
+
+      - name: Run tests
+        working-directory: sdk/python
+        run: pytest tests/ -v --tb=short
+
+      - name: Check coverage
+        working-directory: sdk/python
+        run: pytest tests/ --cov=contextgenos --cov-report=term-missing --cov-fail-under=80
+
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install uv
+        run: pip install uv
+
+      - name: Install lint tools
+        run: uv pip install ruff mypy --system
+
+      - name: Ruff check
+        working-directory: sdk/python
+        run: ruff check .
+
+      - name: Ruff format check
+        working-directory: sdk/python
+        run: ruff format --check .
+
+      - name: Mypy
+        working-directory: sdk/python
+        run: mypy contextgenos/

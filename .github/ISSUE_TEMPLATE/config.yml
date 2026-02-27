@@ -1,0 +1,12 @@
+blank_issues_enabled: false
+
+contact_links:
+  - name: Discord (fastest response)
+    url: https://discord.gg/contextgenos
+    about: For questions, troubleshooting, and general discussion. Faster than GitHub issues.
+  - name: Documentation
+    url: https://docs.contextgenos.dev
+    about: Quickstart guide, collector spec, API reference, and architecture docs.
+  - name: GitHub Discussions
+    url: https://github.com/Kisbjornssund/ContextGenOS/discussions
+    about: For ideas, proposals, and questions that are not bug reports or feature requests.

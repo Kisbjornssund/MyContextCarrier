@@ -1,0 +1,73 @@
+name: Feature Request
+description: Propose a new feature or improvement
+labels: ["feature"]
+body:
+  - type: checkboxes
+    attributes:
+      label: Before you file this issue
+      options:
+        - label: I have searched existing issues and this has not been requested before
+          required: true
+        - label: I have checked the roadmap to confirm this is not already planned
+          required: false
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem does this solve?
+      description: Describe the problem or limitation you are experiencing. Be specific.
+      placeholder: "When I use ContextGenOS with GPT-4, I have no way to see what context was actually injected. I trust the system but cannot verify it."
+    validations:
+      required: true
+
+  - type: textarea
+    id: who_benefits
+    attributes:
+      label: Who benefits from this?
+      description: Describe the user or contributor who would gain from this feature
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed_solution
+    attributes:
+      label: Proposed solution
+      description: Describe what you want to happen
+    validations:
+      required: true
+
+  - type: textarea
+    id: smallest_version
+    attributes:
+      label: What is the smallest version of this that would be useful?
+      description: This helps us scope the feature appropriately and find a viable MVP
+    validations:
+      required: true
+
+  - type: dropdown
+    id: component
+    attributes:
+      label: Component
+      multiple: true
+      options:
+        - Core daemon
+        - MCP server / API
+        - Privacy rules engine
+        - CLI
+        - Desktop UI
+        - Python SDK
+        - Collector system
+        - Documentation
+        - CI / tooling
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives you have considered
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional context

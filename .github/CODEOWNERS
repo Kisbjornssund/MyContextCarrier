@@ -1,0 +1,29 @@
+# CODEOWNERS — assigns required reviewers by path
+# Format: <pattern> <owner1> <owner2>
+# Replace @Kisbjornssund with additional maintainer handles as the team grows.
+
+# Core daemon — requires maintainer review
+/crates/contextgenos-core/       @Kisbjornssund
+/crates/contextgenos-store/      @Kisbjornssund
+/crates/contextgenos-privacy/    @Kisbjornssund
+/crates/contextgenos-graph/      @Kisbjornssund
+/crates/contextgenos-mcp/        @Kisbjornssund
+
+# CLI — maintainer review
+/crates/contextgenos-cli/        @Kisbjornssund
+
+# Python SDK — maintainer review (interface stability matters)
+/sdk/python/contextgenos/        @Kisbjornssund
+
+# Collectors — lighter review, any approved reviewer can merge
+/collectors/                  @Kisbjornssund
+
+# CI/CD — maintainer review (changes affect all contributors)
+/.github/workflows/           @Kisbjornssund
+/.github/                     @Kisbjornssund
+
+# Security policy — maintainer only
+/SECURITY.md                  @Kisbjornssund
+
+# Docs — low bar, welcome contributions
+/docs/                        @Kisbjornssund

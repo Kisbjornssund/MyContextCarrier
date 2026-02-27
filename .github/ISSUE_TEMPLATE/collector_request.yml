@@ -1,0 +1,76 @@
+name: Collector Request
+description: Request a new context collector or express intent to build one
+labels: ["feature", "collector: new"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Collector requests are how the community signals demand and finds contributors.
+        If you want to build this collector yourself, say so — we will help you get started.
+
+  - type: input
+    id: source_name
+    attributes:
+      label: Data source name
+      description: The tool, app, or service you want to collect context from
+      placeholder: "Notion, Todoist, Apple Health, Garmin, Spotify..."
+    validations:
+      required: true
+
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      multiple: true
+      options:
+        - macOS
+        - Linux
+        - Windows
+        - All platforms
+    validations:
+      required: true
+
+  - type: dropdown
+    id: data_access
+    attributes:
+      label: How is the data accessed?
+      description: This determines implementation difficulty
+      options:
+        - Local file or database (no network required)
+        - Local API or socket (no network required)
+        - Cloud API with OAuth
+        - Cloud API with API key
+        - Unknown / needs investigation
+    validations:
+      required: true
+
+  - type: textarea
+    id: what_context
+    attributes:
+      label: What context would this provide?
+      description: Describe what information the collector would capture and why it would be useful to AI tools
+      placeholder: "Notion pages and database entries from the past 30 days, so that my AI tools understand my project notes and reference material..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: existing_work
+    attributes:
+      label: Existing implementations or references
+      description: Are there existing open source projects, API docs, or prior art that would help?
+
+  - type: dropdown
+    id: willing_to_build
+    attributes:
+      label: Are you willing to build this collector?
+      options:
+        - "Yes — I want to build it, please point me to the spec"
+        - "Maybe — I could help if someone starts it"
+        - "No — I am requesting this for someone else to build"
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional context

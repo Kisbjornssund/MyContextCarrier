@@ -1,0 +1,38 @@
+name: Auto Response
+
+on:
+  issues:
+    types: [opened]
+  pull_request:
+    types: [opened]
+
+permissions:
+  issues: write
+  pull-requests: write
+
+jobs:
+  welcome-first-timer:
+    name: Welcome first-time contributors
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/first-interaction@v1
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+
+          issue-message: |
+            Thank you for opening your first issue in ContextGenOS!
+
+            A maintainer will review this shortly. In the meantime:
+            - For troubleshooting, join **#getting-started** on [Discord](https://discord.gg/contextgenos)
+            - For collector questions, see the [collector spec](https://docs.contextgenos.dev/collectors/writing-a-collector)
+            - For contribution guidance, read [CONTRIBUTING.md](https://github.com/Kisbjornssund/ContextGenOS/blob/main/CONTRIBUTING.md)
+
+          pr-message: |
+            Thank you for your first contribution to ContextGenOS!
+
+            A maintainer will review your pull request. Please make sure:
+            - The PR template is filled out completely, including the Privacy Impact section
+            - CI checks pass (you will see them appear below)
+            - For collector PRs: run `contextgenos dev test-collector` locally before requesting review
+
+            Join **#contributing** on [Discord](https://discord.gg/contextgenos) if you have questions while waiting.

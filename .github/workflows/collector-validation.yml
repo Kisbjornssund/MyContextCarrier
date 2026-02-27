@@ -1,0 +1,66 @@
+name: Collector Validation
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "collectors/**"
+      - "sdk/python/**"
+
+jobs:
+  validate:
+    name: Validate collector PR
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install uv
+        run: pip install uv
+
+      - name: Install SDK
+        run: uv pip install -e "./sdk/python[dev]" --system
+
+      - name: Find changed collectors
+        id: changed
+        uses: tj-actions/changed-files@v44
+        with:
+          files: collectors/**
+
+      - name: Validate each changed collector
+        if: steps.changed.outputs.any_changed == 'true'
+        run: |
+          for dir in $(echo "${{ steps.changed.outputs.all_changed_files }}" | tr ' ' '\n' | xargs -I{} dirname {} | sort -u | grep "^collectors/"); do
+            collector_file="$dir/collector.py"
+            if [ -f "$collector_file" ]; then
+              echo "Validating: $collector_file"
+              python -m contextgenos.dev.validate "$collector_file"
+            fi
+          done
+
+      - name: Run collector tests
+        if: steps.changed.outputs.any_changed == 'true'
+        run: |
+          for dir in $(echo "${{ steps.changed.outputs.all_changed_files }}" | tr ' ' '\n' | xargs -I{} dirname {} | sort -u | grep "^collectors/"); do
+            test_dir="$dir/tests"
+            if [ -d "$test_dir" ]; then
+              echo "Testing: $test_dir"
+              pytest "$test_dir" -v --tb=short
+            fi
+          done
+
+      - name: Check for network calls in tests
+        if: steps.changed.outputs.any_changed == 'true'
+        run: |
+          for dir in $(echo "${{ steps.changed.outputs.all_changed_files }}" | tr ' ' '\n' | xargs -I{} dirname {} | sort -u | grep "^collectors/"); do
+            test_dir="$dir/tests"
+            if [ -d "$test_dir" ]; then
+              echo "Checking for network calls in $test_dir"
+              pytest "$test_dir" --socket-disabled -v --tb=short
+            fi
+          done

@@ -1,0 +1,42 @@
+# Rust
+/target/
+Cargo.lock
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+dist/
+build/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+htmlcov/
+.coverage
+
+# Node (docs site)
+node_modules/
+docs/build/
+docs/.docusaurus/
+
+# ContextGenOS local data (never commit user data)
+.contextgenos/
+*.contextgenos-backup
+
+# macOS
+.DS_Store
+
+# Editor
+.vscode/settings.json
+.idea/
+*.swp
+*.swo
+
+# Env files (never commit credentials)
+.env
+.env.*
+
+# Build artifacts
+*.tar.gz
+*.zip

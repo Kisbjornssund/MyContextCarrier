@@ -1,0 +1,47 @@
+# Auto-labeling rules for PRs based on changed file paths
+
+"area: core":
+  - changed-files:
+    - any-glob-to-any-file: "crates/contextgenos-core/**"
+    - any-glob-to-any-file: "crates/contextgenos-store/**"
+    - any-glob-to-any-file: "crates/contextgenos-graph/**"
+
+"area: mcp":
+  - changed-files:
+    - any-glob-to-any-file: "crates/contextgenos-mcp/**"
+
+"area: privacy-engine":
+  - changed-files:
+    - any-glob-to-any-file: "crates/contextgenos-privacy/**"
+
+"area: cli":
+  - changed-files:
+    - any-glob-to-any-file: "crates/contextgenos-cli/**"
+
+"area: sdk":
+  - changed-files:
+    - any-glob-to-any-file: "sdk/python/**"
+
+"collector: new":
+  - changed-files:
+    - any-glob-to-any-file: "collectors/**"
+
+"area: ui":
+  - changed-files:
+    - any-glob-to-any-file: "ui/**"
+
+"area: docs":
+  - changed-files:
+    - any-glob-to-any-file: "docs/**"
+    - any-glob-to-any-file: "*.md"
+
+"area: ci":
+  - changed-files:
+    - any-glob-to-any-file: ".github/**"
+    - any-glob-to-any-file: "scripts/**"
+
+"size: XS":
+  - changed-files:
+    - any-glob-to-any-file: "**"
+  # Note: size labels are better assigned manually or via a dedicated size-labeler action
+  # This config file handles path-based labels only

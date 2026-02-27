@@ -1,0 +1,57 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "contextgenos"
+version = "0.1.0"
+description = "ContextGenOS Python SDK: build context collectors for any data source"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10"
+authors = [{ name = "Kimmo Isbjörnssund" }]
+keywords = ["ai", "context", "mcp", "local-first", "privacy"]
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries",
+]
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-asyncio>=0.23",
+    "pytest-cov>=5.0",
+    "pytest-socket>=0.7",   # for --socket-disabled in collector validation
+    "ruff>=0.4",
+    "mypy>=1.10",
+]
+
+[project.urls]
+Homepage = "https://contextgenos.dev"
+Repository = "https://github.com/Kisbjornssund/ContextGenOS"
+Documentation = "https://docs.contextgenos.dev"
+Issues = "https://github.com/Kisbjornssund/ContextGenOS/issues"
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "UP", "B", "ANN"]
+ignore = ["ANN101", "ANN102"]
+
+[tool.mypy]
+python_version = "3.10"
+strict = true
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
