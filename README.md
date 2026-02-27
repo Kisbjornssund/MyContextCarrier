@@ -2,7 +2,7 @@
 
 ### The Universal Personal Memory Layer for AI
 
-> *Your context. Your data. Every AI, everywhere. Never leaves your machine.*
+> *Your context. Your data. Every AI, everywhere.*
 
 ---
 
@@ -33,7 +33,7 @@
 - Option A: Have AI that knows you, but surrender your personal data to corporate clouds
 - Option B: Keep your data private, but re-explain yourself every single session
 
-**ContextGenOS solves both.** Your context is captured locally, stored encrypted on your machine with keys only you hold, and injected into any AI tool, without the data ever leaving your device.
+**ContextGenOS solves both.** Your context is captured and stored locally on your machine. You decide exactly what gets shared with which AI tool — and nothing leaves your device unless you choose to inject it.
 
 ---
 
