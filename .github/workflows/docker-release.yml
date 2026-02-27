@@ -4,7 +4,6 @@ on:
   push:
     tags:
       - "v*.*.*"
-  push:
     branches:
       - main  # builds dev tag on every merge to main
 
