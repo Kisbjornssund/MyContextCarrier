@@ -3,6 +3,9 @@ FROM rust:1.75-slim-bookworm AS builder
 
 WORKDIR /app
 
+# Force git protocol — cargo sparse registry (HTTP/2) fails in Docker BuildKit network namespace
+ENV CARGO_REGISTRIES_CRATES_IO_PROTOCOL=git
+
 # DuckDB bundled feature compiles DuckDB from source — needs cmake + C++
 RUN apt-get update && apt-get install -y --no-install-recommends \
     cmake \
