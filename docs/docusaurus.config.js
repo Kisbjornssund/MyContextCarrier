@@ -6,8 +6,8 @@ const config = {
   tagline: 'Your personal AI memory layer. Local. Private. Yours.',
   favicon: 'img/favicon.ico',
 
-  url: 'https://docs.contextgenos.dev',
-  baseUrl: '/',
+  url: 'https://kisbjornssund.github.io',
+  baseUrl: '/ContextGenOS/',
 
   organizationName: 'Kisbjornssund',
   projectName: 'ContextGenOS',
@@ -71,7 +71,7 @@ const config = {
             items: [
               { label: 'Quickstart', to: '/docs/quickstart' },
               { label: 'Writing a Collector', to: '/docs/contributing/writing-a-collector' },
-              { label: 'Privacy Architecture', to: '/docs/privacy/architecture' },
+              { label: 'Contributing', to: '/docs/contributing/first-contribution' },
             ],
           },
           {
@@ -95,12 +95,6 @@ const config = {
       },
       prism: {
         additionalLanguages: ['rust', 'bash', 'toml', 'yaml', 'json'],
-      },
-      algolia: {
-        // Add Algolia DocSearch credentials when available
-        appId: 'PLACEHOLDER',
-        apiKey: 'PLACEHOLDER',
-        indexName: 'contextgenos',
       },
     }),
 };
