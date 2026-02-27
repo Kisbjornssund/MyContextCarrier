@@ -1,6 +1,7 @@
 """Tests for the BaseCollector interface and ContextItem types."""
 
 import pytest
+
 from contextgenos import BaseCollector, CollectorHealth, ContextItem, Sensitivity
 from contextgenos.collector import CollectorError
 
