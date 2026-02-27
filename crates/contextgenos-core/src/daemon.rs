@@ -14,9 +14,7 @@ pub struct DaemonConfig {
 impl Default for DaemonConfig {
     fn default() -> Self {
         Self {
-            store_path: dirs::home_dir()
-                .unwrap_or_default()
-                .join(".contextgenos"),
+            store_path: dirs::home_dir().unwrap_or_default().join(".contextgenos"),
             collection_interval_secs: 900, // 15 minutes
         }
     }

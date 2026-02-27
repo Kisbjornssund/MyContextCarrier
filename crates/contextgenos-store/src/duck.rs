@@ -1,7 +1,7 @@
 //! DuckDB-backed structured context store.
 
-use std::path::Path;
 use crate::Result;
+use std::path::Path;
 
 /// The structured context store backed by an embedded DuckDB database.
 pub struct ContextStore {

@@ -104,7 +104,10 @@ async fn main() -> anyhow::Result<()> {
     let cli = Cli::parse();
 
     match cli.command {
-        Commands::Init { wizard, non_interactive } => {
+        Commands::Init {
+            wizard,
+            non_interactive,
+        } => {
             println!("Initializing ContextGenOS...");
             let _ = (wizard, non_interactive);
             // TODO: implement init

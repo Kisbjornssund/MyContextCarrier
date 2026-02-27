@@ -17,7 +17,7 @@ license = "MIT"
 repository = "https://github.com/Kisbjornssund/ContextGenOS"
 homepage = "https://contextgenos.dev"
 documentation = "https://docs.contextgenos.dev"
-rust-version = "1.75"
+rust-version = "1.85"
 
 [workspace.dependencies]
 # Async runtime
