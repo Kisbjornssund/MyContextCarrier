@@ -28,8 +28,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 COPY --from=builder /app/target/release/contextgenos /usr/local/bin/contextgenos
 
-# Context data lives in ~/.contextgenos
-VOLUME ["/root/.contextgenos"]
+# Context data lives in ~/.local/share/ContextGenOS (Linux data_local_dir)
+VOLUME ["/root/.local/share/ContextGenOS"]
 
 ENTRYPOINT ["contextgenos"]
 CMD ["--help"]

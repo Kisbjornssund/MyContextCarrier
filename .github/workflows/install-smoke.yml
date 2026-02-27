@@ -7,6 +7,7 @@ on:
     branches: [main]
     paths:
       - "scripts/install.sh"
+      - "scripts/install.ps1"
       - "crates/contextgenos-cli/**"
       - "crates/contextgenos-core/**"
       - "crates/contextgenos-mcp/**"
@@ -63,5 +64,32 @@ jobs:
         run: |
           ./target/release/contextgenos init --non-interactive
           ./target/release/contextgenos status
+
+      # MCP server health check skipped — mcp serve is not yet implemented
+
+  smoke-windows:
+    name: Smoke test (Windows)
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache cargo
+        uses: Swatinem/rust-cache@v2
+
+      - name: Build CLI
+        run: cargo build --package contextgenos-cli --release
+
+      - name: Verify binary runs
+        run: |
+          .\target\release\contextgenos.exe --version
+          .\target\release\contextgenos.exe --help
+
+      - name: Verify init command works
+        run: |
+          .\target\release\contextgenos.exe init --non-interactive
+          .\target\release\contextgenos.exe status
 
       # MCP server health check skipped — mcp serve is not yet implemented

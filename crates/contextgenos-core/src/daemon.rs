@@ -14,7 +14,11 @@ pub struct DaemonConfig {
 impl Default for DaemonConfig {
     fn default() -> Self {
         Self {
-            store_path: dirs::home_dir().unwrap_or_default().join(".contextgenos"),
+            // data_local_dir: ~/Library/Application Support on macOS,
+            // ~/.local/share on Linux, %LOCALAPPDATA% on Windows.
+            store_path: dirs::data_local_dir()
+                .unwrap_or_else(|| dirs::home_dir().unwrap_or_default())
+                .join("ContextGenOS"),
             collection_interval_secs: 900, // 15 minutes
         }
     }
