@@ -6,6 +6,7 @@ from __future__ import annotations
 
 import abc
 from collections.abc import AsyncIterator
+from typing import Any
 
 from contextgenos.types import CollectorHealth, ContextItem
 
@@ -59,13 +60,13 @@ class BaseCollector(abc.ABC):
     #: List of supported platforms: "macos", "linux", "windows".
     platforms: list[str]
 
-    def __init__(self, config: dict | None = None) -> None:
+    def __init__(self, config: dict[str, Any] | None = None) -> None:
         """
         Args:
             config: Collector-specific configuration dictionary, sourced from
                     the user's ~/.contextgenos/config.yaml collector section.
         """
-        self.config: dict = config or {}
+        self.config: dict[str, Any] = config or {}
 
     @abc.abstractmethod
     async def collect(self) -> list[ContextItem]:
