@@ -52,4 +52,4 @@ To add an entry, open a [Collector Request issue](https://github.com/Kisbjornssu
 3. Run `contextgenos dev new-collector --name your-tool` to scaffold
 4. Open a PR: collector PRs are the fastest path to a merged contribution
 
-Questions? Join `#collectors-dev` on [Discord](https://discord.gg/contextgenos).
+Questions? Join `#collectors-dev` on [Discord](https://discord.gg/NvqtCBRr).

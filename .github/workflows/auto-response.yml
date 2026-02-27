@@ -23,7 +23,7 @@ jobs:
             Thank you for opening your first issue in ContextGenOS!
 
             A maintainer will review this shortly. In the meantime:
-            - For troubleshooting, join **#getting-started** on [Discord](https://discord.gg/contextgenos)
+            - For troubleshooting, join **#getting-started** on [Discord](https://discord.gg/NvqtCBRr)
             - For collector questions, see the [collector spec](https://docs.contextgenos.dev/collectors/writing-a-collector)
             - For contribution guidance, read [CONTRIBUTING.md](https://github.com/Kisbjornssund/ContextGenOS/blob/main/CONTRIBUTING.md)
 
@@ -35,4 +35,4 @@ jobs:
             - CI checks pass (you will see them appear below)
             - For collector PRs: run `contextgenos dev test-collector` locally before requesting review
 
-            Join **#contributing** on [Discord](https://discord.gg/contextgenos) if you have questions while waiting.
+            Join **#contributing** on [Discord](https://discord.gg/NvqtCBRr) if you have questions while waiting.

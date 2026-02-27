@@ -11,7 +11,7 @@
 [![Status: Pre-Alpha](https://img.shields.io/badge/Status-Pre--Alpha-orange.svg)]()
 [![MCP Compatible](https://img.shields.io/badge/MCP-Compatible-green.svg)]()
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
-[![Discord](https://img.shields.io/badge/Discord-Join%20us-7289da.svg)](https://discord.gg/contextgenos)
+[![Discord](https://img.shields.io/badge/Discord-Join%20us-7289da.svg)](https://discord.gg/NvqtCBRr)
 
 ---
 
@@ -196,7 +196,7 @@ contextgenos dev new-collector --name my-tool --platform macos,linux
 
 → [Read CONTRIBUTING.md to get started](CONTRIBUTING.md)
 → [Your first contribution in under 3 hours](docs/docs/contributing/first-contribution.md)
-→ [Join Discord](https://discord.gg/contextgenos), `#collectors-dev` is where the action is
+→ [Join Discord](https://discord.gg/NvqtCBRr), `#collectors-dev` is where the action is
 
 ---
 
@@ -212,7 +212,7 @@ ContextGenOS is infrastructure for AI that respects human sovereignty. It is not
 
 ## Community
 
-- **Discord:** [discord.gg/contextgenos](https://discord.gg/contextgenos)
+- **Discord:** [discord.gg/NvqtCBRr](https://discord.gg/NvqtCBRr)
 - **GitHub Discussions:** [Discussions](https://github.com/Kisbjornssund/ContextGenOS/discussions)
 - **Twitter/X:** [@contextgenosdev](https://x.com/contextgenosdev)
 - **Docs:** [docs.contextgenos.dev](https://docs.contextgenos.dev)

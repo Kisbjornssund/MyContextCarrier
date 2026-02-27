@@ -161,4 +161,4 @@ The collector PR review bar is lower than core PRs. If your collector passes val
 
 ## Need help?
 
-Join `#collectors-dev` on [Discord](https://discord.gg/contextgenos). Post your collector idea and the team will help you find the right data source path and implementation approach.
+Join `#collectors-dev` on [Discord](https://discord.gg/NvqtCBRr). Post your collector idea and the team will help you find the right data source path and implementation approach.

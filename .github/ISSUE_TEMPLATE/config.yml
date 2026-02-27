@@ -2,7 +2,7 @@ blank_issues_enabled: false
 
 contact_links:
   - name: Discord (fastest response)
-    url: https://discord.gg/contextgenos
+    url: https://discord.gg/NvqtCBRr
     about: For questions, troubleshooting, and general discussion. Faster than GitHub issues.
   - name: Documentation
     url: https://docs.contextgenos.dev

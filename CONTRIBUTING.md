@@ -17,7 +17,7 @@ ContextGenOS is built by the people who use it. The plugin architecture is desig
 
 **Not sure where to start?** Check [open issues labeled `good first issue`](https://github.com/Kisbjornssund/ContextGenOS/issues?q=is%3Aopen+label%3A%22good+first+issue%22).
 
-**Have a question?** Join `#contributing` on [Discord](https://discord.gg/contextgenos) before opening an issue.
+**Have a question?** Join `#contributing` on [Discord](https://discord.gg/NvqtCBRr) before opening an issue.
 
 ---
 
@@ -228,4 +228,4 @@ By contributing, you agree to the [Code of Conduct](CODE_OF_CONDUCT.md).
 
 ---
 
-*Questions? Join `#contributing` on [Discord](https://discord.gg/contextgenos).*
+*Questions? Join `#contributing` on [Discord](https://discord.gg/NvqtCBRr).*

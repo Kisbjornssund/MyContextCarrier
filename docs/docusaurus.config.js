@@ -57,7 +57,7 @@ const config = {
             position: 'right',
           },
           {
-            href: 'https://discord.gg/contextgenos',
+            href: 'https://discord.gg/NvqtCBRr',
             label: 'Discord',
             position: 'right',
           },
@@ -77,7 +77,7 @@ const config = {
           {
             title: 'Community',
             items: [
-              { label: 'Discord', href: 'https://discord.gg/contextgenos' },
+              { label: 'Discord', href: 'https://discord.gg/NvqtCBRr' },
               { label: 'GitHub Discussions', href: 'https://github.com/Kisbjornssund/ContextGenOS/discussions' },
               { label: 'Twitter / X', href: 'https://x.com/contextgenosdev' },
             ],

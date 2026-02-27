@@ -97,7 +97,7 @@ Then open a pull request on GitHub. Fill in the PR template completely, especial
 
 If you hit a wall at any point:
 
-- Post in `#contributing` on [Discord](https://discord.gg/contextgenos)
+- Post in `#contributing` on [Discord](https://discord.gg/NvqtCBRr)
 - Comment on the GitHub issue
 - The team is responsive and will help you get unstuck
 

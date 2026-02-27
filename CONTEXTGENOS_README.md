@@ -210,7 +210,7 @@ MIT. Use it, fork it, build on it, sell products with it.
 
 ## Community
 
-- **Discord:** discord.gg/contextgenos
+- **Discord:** discord.gg/NvqtCBRr
 - **GitHub Discussions:** github.com/contextgenos/contextgenos/discussions
 - **Twitter/X:** @contextgenosdev
 - **Website:** contextgenos.dev

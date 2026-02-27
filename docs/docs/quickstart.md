@@ -102,4 +102,4 @@ This shows what ContextGenOS has collected and whether the MCP server is reachab
 - [Configure privacy rules](../privacy/rules.md): control what goes to which model
 - [Build a collector](../collectors/writing-a-collector.md): add support for a tool you use
 - [Connect another AI tool](../mcp/integrations.md): Ollama, GPT-4, Cursor
-- [Join Discord](https://discord.gg/contextgenos): `#show-and-tell` for setup screenshots
+- [Join Discord](https://discord.gg/NvqtCBRr): `#show-and-tell` for setup screenshots
