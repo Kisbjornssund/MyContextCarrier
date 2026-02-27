@@ -12,6 +12,7 @@ pub struct InjectionDecision {
 
 /// Evaluates privacy rules against context items before injection.
 pub struct PrivacyEngine {
+    #[allow(dead_code)] // used once evaluate() is implemented
     rules: Vec<PrivacyRule>,
 }
 
