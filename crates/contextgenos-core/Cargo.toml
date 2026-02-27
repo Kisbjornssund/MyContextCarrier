@@ -16,6 +16,7 @@ anyhow = { workspace = true }
 thiserror = { workspace = true }
 chrono = { workspace = true }
 uuid = { workspace = true }
+dirs = { workspace = true }
 
 contextgenos-store = { path = "../contextgenos-store" }
 contextgenos-graph = { path = "../contextgenos-graph" }
