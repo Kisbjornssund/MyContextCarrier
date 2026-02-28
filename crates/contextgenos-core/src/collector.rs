@@ -1,43 +1,26 @@
-//! Collector registry — manages active context collectors.
+//! Collector trait and re-exports of shared data types.
 
-use anyhow::Result;
-use serde::{Deserialize, Serialize};
+use async_trait::async_trait;
 
-/// A context item produced by a collector.
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct ContextItem {
-    /// Unique identifier for this item.
-    pub id: String,
-    /// The raw text content.
-    pub content: String,
-    /// Which collector produced this item.
-    pub source: String,
-    /// When this item was collected (Unix timestamp).
-    pub collected_at: i64,
-    /// Optional URL or file path associated with this item.
-    pub url: Option<String>,
-    /// Sensitivity classification.
-    pub sensitivity: Sensitivity,
-    /// Arbitrary metadata from the collector.
-    pub metadata: serde_json::Value,
-}
-
-/// Sensitivity classification for privacy rules enforcement.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
-#[serde(rename_all = "lowercase")]
-pub enum Sensitivity {
-    #[default]
-    Unknown,
-    Public,
-    Work,
-    Personal,
-    Health,
-    Financial,
-}
+// Re-export the data types from the store crate so the rest of the
+// codebase can import from contextgenos_core::collector.
+pub use contextgenos_store::{ContextItem, Sensitivity};
 
 /// Health status returned by a collector's health check.
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone)]
 pub struct CollectorHealth {
     pub healthy: bool,
     pub message: String,
+}
+
+/// Trait implemented by every context collector.
+#[async_trait]
+pub trait Collector: Send + Sync {
+    /// Unique machine-readable collector name (e.g. "shell-history").
+    fn name(&self) -> &str;
+
+    /// Collect context items from the data source.
+    ///
+    /// Must NOT make network requests — local files and sockets only.
+    async fn collect(&self) -> anyhow::Result<Vec<ContextItem>>;
 }

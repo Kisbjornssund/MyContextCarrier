@@ -1,6 +1,10 @@
-//! The ContextGenOS daemon — background process that drives context collection.
+//! The ContextGenOS daemon — drives periodic context collection.
 
-use tracing::info;
+use crate::collector::Collector;
+use contextgenos_store::ContextStore;
+use std::sync::Arc;
+use tokio::time::{interval, Duration};
+use tracing::{error, info, warn};
 
 /// Daemon configuration.
 #[derive(Debug, Clone)]
@@ -24,9 +28,9 @@ impl Default for DaemonConfig {
     }
 }
 
-/// The running daemon instance.
+/// The daemon instance.
 pub struct Daemon {
-    config: DaemonConfig,
+    pub config: DaemonConfig,
 }
 
 impl Daemon {
@@ -34,20 +38,60 @@ impl Daemon {
         Self { config }
     }
 
-    /// Start the daemon. Runs until the process is terminated.
-    pub async fn run(&self) -> crate::Result<()> {
+    async fn run_collection(store: &Arc<ContextStore>, collectors: &[Box<dyn Collector>]) {
+        for collector in collectors {
+            match collector.collect().await {
+                Ok(items) => {
+                    let count = items.len();
+                    match store.insert_items(&items) {
+                        Ok(inserted) => {
+                            info!(
+                                collector = collector.name(),
+                                collected = count,
+                                inserted = inserted,
+                                "Collection run complete"
+                            );
+                        }
+                        Err(e) => {
+                            error!(
+                                collector = collector.name(),
+                                error = %e,
+                                "Failed to insert items into store"
+                            );
+                        }
+                    }
+                }
+                Err(e) => {
+                    warn!(
+                        collector = collector.name(),
+                        error = %e,
+                        "Collector returned an error"
+                    );
+                }
+            }
+        }
+    }
+
+    /// Start the collection loop. Runs until the future is dropped (e.g. via tokio::spawn).
+    ///
+    /// Runs collectors immediately on startup, then repeats every
+    /// `config.collection_interval_secs` seconds.
+    pub async fn run_loop(self, store: Arc<ContextStore>, collectors: Vec<Box<dyn Collector>>) {
         info!(
             store_path = ?self.config.store_path,
             interval_secs = self.config.collection_interval_secs,
-            "ContextGenOS daemon starting"
+            "Collection loop starting"
         );
 
-        // TODO: initialize store
-        // TODO: load and start collectors
-        // TODO: start collection loop
-        // TODO: start MCP server
+        // Run immediately on startup
+        Self::run_collection(&store, &collectors).await;
 
-        info!("ContextGenOS daemon ready");
-        Ok(())
+        // Then run on each interval tick
+        let mut ticker = interval(Duration::from_secs(self.config.collection_interval_secs));
+        ticker.tick().await; // consume the instant first tick
+        loop {
+            ticker.tick().await;
+            Self::run_collection(&store, &collectors).await;
+        }
     }
 }

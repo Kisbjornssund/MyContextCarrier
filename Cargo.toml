@@ -56,6 +56,9 @@ base64 = "0.22"
 config = "0.14"
 toml = "0.8"
 
+# Async trait support
+async-trait = "0.1"
+
 # Utilities
 chrono = { version = "0.4", features = ["serde"] }
 uuid = { version = "1", features = ["v4", "serde"] }

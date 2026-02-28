@@ -1,4 +1,11 @@
 use clap::{Parser, Subcommand};
+use contextgenos_core::{
+    collector::Collector,
+    collectors::ShellHistoryCollector,
+    daemon::{Daemon, DaemonConfig},
+};
+use contextgenos_store::ContextStore;
+use std::sync::Arc;
 
 #[derive(Parser)]
 #[command(
@@ -48,7 +55,7 @@ enum Commands {
         #[command(subcommand)]
         action: CollectorCommands,
     },
-    /// Run the MCP server
+    /// Run the MCP server (stdio transport for Claude Desktop)
     Mcp {
         #[command(subcommand)]
         action: McpCommands,
@@ -74,7 +81,7 @@ enum CollectorCommands {
 
 #[derive(Subcommand)]
 enum McpCommands {
-    /// Start the MCP server
+    /// Start the MCP server (stdio transport — used by Claude Desktop)
     Serve {
         #[arg(long, default_value = "8765")]
         port: u16,
@@ -99,44 +106,117 @@ enum DevCommands {
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
+    // Tracing writes to stderr — does not interfere with stdout MCP JSON-RPC channel.
     tracing_subscriber::fmt::init();
 
     let cli = Cli::parse();
+    let config = DaemonConfig::default();
 
     match cli.command {
-        Commands::Init {
-            wizard,
-            non_interactive,
-        } => {
-            println!("Initializing ContextGenOS...");
-            let _ = (wizard, non_interactive);
-            // TODO: implement init
+        Commands::Init { wizard: _, non_interactive: _ } => {
+            cmd_init(&config)?;
         }
         Commands::Status => {
-            println!("ContextGenOS status:");
-            // TODO: implement status
+            cmd_status(&config)?;
         }
         Commands::Inspect { source, limit } => {
-            let _ = (source, limit);
-            // TODO: implement inspect
+            cmd_inspect(&config, source, limit)?;
         }
-        Commands::Log { debug, limit } => {
-            let _ = (debug, limit);
-            // TODO: implement log
+        Commands::Log { debug: _, limit: _ } => {
+            eprintln!("Log command not yet implemented.");
         }
-        Commands::Collector { action } => {
-            let _ = action;
-            // TODO: implement collector commands
+        Commands::Collector { action: _ } => {
+            eprintln!("Collector management not yet implemented.");
         }
-        Commands::Mcp { action } => {
-            let _ = action;
-            // TODO: start MCP server
-        }
-        Commands::Dev { action } => {
-            let _ = action;
-            // TODO: implement dev tools
+        Commands::Mcp { action } => match action {
+            McpCommands::Serve { port: _ } => {
+                cmd_mcp_serve(&config).await?;
+            }
+        },
+        Commands::Dev { action: _ } => {
+            eprintln!("Dev tools not yet implemented.");
         }
     }
+
+    Ok(())
+}
+
+fn cmd_init(config: &DaemonConfig) -> anyhow::Result<()> {
+    let store = ContextStore::open(&config.store_path)?;
+    store.initialize()?;
+    println!("Initialized ContextGenOS.");
+    println!("Store: {}", config.store_path.join("context.db").display());
+    println!();
+    println!("Next steps:");
+    println!("  contextgenos mcp serve     Start collecting context (for Claude Desktop)");
+    println!("  contextgenos status        Show store status");
+    Ok(())
+}
+
+fn cmd_status(config: &DaemonConfig) -> anyhow::Result<()> {
+    let db_path = config.store_path.join("context.db");
+    if !db_path.exists() {
+        println!("ContextGenOS is not initialized.");
+        println!("Run 'contextgenos init' to get started.");
+        return Ok(());
+    }
+    let store = ContextStore::open(&config.store_path)?;
+    store.initialize()?;
+    let count = store.count()?;
+    println!("Store:  {}", db_path.display());
+    println!("Items:  {}", count);
+    println!();
+    println!("Run 'contextgenos mcp serve' to start collecting context.");
+    Ok(())
+}
+
+fn cmd_inspect(
+    config: &DaemonConfig,
+    source: Option<String>,
+    limit: usize,
+) -> anyhow::Result<()> {
+    let db_path = config.store_path.join("context.db");
+    if !db_path.exists() {
+        println!("Store not found. Run 'contextgenos init' first.");
+        return Ok(());
+    }
+    let store = ContextStore::open(&config.store_path)?;
+    store.initialize()?;
+    let items = store.query_recent(limit)?;
+    let items: Vec<_> = if let Some(src) = &source {
+        items.into_iter().filter(|i| &i.source == src).collect()
+    } else {
+        items
+    };
+    if items.is_empty() {
+        println!("No context items found.");
+    } else {
+        for item in &items {
+            println!("[{}] {}", item.source, item.content);
+        }
+    }
+    Ok(())
+}
+
+async fn cmd_mcp_serve(config: &DaemonConfig) -> anyhow::Result<()> {
+    // Open (or create) the store and ensure schema exists.
+    let store = Arc::new(ContextStore::open(&config.store_path)?);
+    store.initialize()?;
+
+    // Build the collector list.
+    let collectors: Vec<Box<dyn Collector>> = vec![
+        Box::new(ShellHistoryCollector::new()),
+    ];
+
+    // Spawn the background collection loop.
+    let daemon = Daemon::new(config.clone());
+    let store_for_loop = Arc::clone(&store);
+    tokio::spawn(async move {
+        daemon.run_loop(store_for_loop, collectors).await;
+    });
+
+    // Start the MCP stdio server on the main task — blocks until stdin closes.
+    contextgenos_mcp::serve_stdio(store).await?;
 
     Ok(())
 }

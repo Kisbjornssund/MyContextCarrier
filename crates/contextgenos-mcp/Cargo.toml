@@ -22,3 +22,4 @@ chrono = { workspace = true }
 
 contextgenos-core = { path = "../contextgenos-core" }
 contextgenos-privacy = { path = "../contextgenos-privacy" }
+contextgenos-store = { path = "../contextgenos-store" }

@@ -4,6 +4,7 @@
 //! context store, and injection into AI tools via the MCP server.
 
 pub mod collector;
+pub mod collectors;
 pub mod daemon;
 pub mod error;
 
