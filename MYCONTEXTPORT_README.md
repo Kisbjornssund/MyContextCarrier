@@ -72,7 +72,7 @@ You can inspect, edit, export, or delete any piece of context MyContextPort hold
                      │
                      ▼
 ┌─────────────────────────────────────────────────────┐
-│               CONTEXTGENOS CORE                        │
+│             MYCONTEXTPORT CORE                      │
 │   DuckDB (structured) + Qdrant (vector) local store │
 │   Context graph · Relevance ranking · Privacy rules │
 └────────────────────┬────────────────────────────────┘
@@ -96,6 +96,84 @@ You can inspect, edit, export, or delete any piece of context MyContextPort hold
 - **Qdrant**: local vector search (embedded mode)
 - **MCP Protocol**: native AI model integration standard
 - **Python SDK**: for contributor accessibility and plugin development
+
+---
+
+## Ecosystem & Integrations
+
+MyContextPort is an **MCP server** — the privacy and memory layer that any MCP-compatible AI
+tool can connect to. Your context is not owned by any single app. It travels with you.
+
+### How it fits with other projects
+
+| Project | Role | How they connect |
+|---|---|---|
+| [OpenClaw](https://openclaw.ai) | Personal AI assistant (MCP client) | OpenClaw queries MyContextPort for structured, privacy-gated context before every agentic step |
+| [Claude Desktop](https://claude.ai) | AI client (MCP client) | Native MCP config — one JSON entry connects Claude to your full context |
+| [Cursor](https://cursor.sh) | AI code editor (MCP client) | Same MCP config — Cursor becomes aware of your project history and preferences |
+| [Ollama](https://ollama.com) | Local LLM inference | MyContextPort uses Ollama for on-device agentic reasoning over sensitive context |
+| Any MCP-compatible tool | MCP client | One config entry — works the same way for every tool that speaks MCP |
+
+### Connecting OpenClaw
+
+OpenClaw is a local-first personal AI assistant with agentic capabilities across messaging
+platforms and a native macOS app. It connects to MyContextPort via MCP — add one entry to
+your `openclaw.json`:
+
+```json
+{
+  "mcpServers": {
+    "mycontextport": {
+      "command": "mycontextport",
+      "args": ["mcp", "serve"]
+    }
+  }
+}
+```
+
+Once connected, every OpenClaw interaction is informed by your structured personal context,
+governed by MyContextPort's privacy rules. OpenClaw handles the agentic reasoning and UI.
+MyContextPort handles what OpenClaw is allowed to know and from where.
+
+### Connecting Claude Desktop
+
+```json
+// ~/Library/Application Support/Claude/claude_desktop_config.json
+{
+  "mcpServers": {
+    "mycontextport": {
+      "command": "mycontextport",
+      "args": ["mcp", "serve"]
+    }
+  }
+}
+```
+
+### The full local-first stack
+
+```
+OpenClaw · Claude Desktop · Cursor · Any MCP client
+                    │
+                    │  MCP (stdio / localhost only)
+                    ▼
+             MyContextPort
+       Privacy engine + DuckDB store
+       Structured context + Privacy rules
+                    │
+                    ▼
+               Ollama
+     Local LLM inference (no API keys)
+     Sensitive context never leaves device
+```
+
+### Why this architecture matters
+
+MyContextPort's context is available to every AI tool you use — simultaneously and equally.
+When you open Claude Desktop directly, your context is there. When you use OpenClaw on your
+phone via Telegram, your context is there. When you write code in Cursor, your context is there.
+
+This is the portable, cross-client context layer that no single AI application can provide,
+because each application only knows what happens inside itself.
 
 ---
 
@@ -223,7 +301,7 @@ MIT. Use it, fork it, build on it, sell products with it.
 
 ---
 
-# THE CONTEXTGENOS MANIFESTO
+# THE MYCONTEXTPORT MANIFESTO
 
 ## *For the Right to Be Known Without Being Watched*
 

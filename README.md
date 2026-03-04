@@ -97,7 +97,7 @@ Claude already knows.
                      │ Context Collectors (Python plugins)
                      ▼
 ┌─────────────────────────────────────────────────────┐
-│               CONTEXTGENOS CORE (Rust)                 │
+│             MYCONTEXTPORT CORE (Rust)               │
 │   DuckDB (structured) + Qdrant (vector) local store │
 │   Context graph · Relevance ranking · Privacy rules │
 │   Encrypted at rest · Keys stay on your device      │
@@ -120,6 +120,82 @@ Claude already knows.
 
 ---
 
+## Ecosystem & Integrations
+
+MyContextPort is an **MCP server**. Any tool that speaks MCP can query it. Your context travels
+with you — not locked inside any single app.
+
+### Works with OpenClaw
+
+[OpenClaw](https://openclaw.ai) is a privacy-first personal AI assistant that runs locally and
+connects to MCP servers. MyContextPort integrates as a single config entry:
+
+```json
+// In your openclaw.json
+{
+  "mcpServers": {
+    "mycontextport": {
+      "command": "mycontextport",
+      "args": ["mcp", "serve"]
+    }
+  }
+}
+```
+
+Once connected, OpenClaw's agentic reasoning — across WhatsApp, Telegram, Slack, Discord, and
+its native macOS app — is automatically aware of your structured personal context. Privacy rules
+in MyContextPort determine exactly what OpenClaw can see, per sensitivity tier.
+
+### Works with Claude Desktop
+
+```json
+// In claude_desktop_config.json
+{
+  "mcpServers": {
+    "mycontextport": {
+      "command": "mycontextport",
+      "args": ["mcp", "serve"]
+    }
+  }
+}
+```
+
+### Works with Cursor, Zed, and any MCP client
+
+Any editor or AI tool with MCP support connects the same way. The same context, the same privacy
+rules, everywhere you work.
+
+### Works with Ollama
+
+MyContextPort uses [Ollama](https://ollama.com) for on-device agentic reasoning — no API keys,
+no cloud, no data sent anywhere. Sensitive context (Health, Financial, Personal sensitivity tiers)
+is never routed to cloud models.
+
+```bash
+# MyContextPort will use Ollama automatically if installed
+ollama pull llama3
+mycontextport start
+```
+
+### The full local-first stack
+
+```
+OpenClaw · Claude Desktop · Cursor · Any MCP client
+                    │
+                    │  MCP (stdio / localhost)
+                    ▼
+             MyContextPort
+        (privacy engine + DuckDB)
+                    │
+                    ▼
+               Ollama
+          (local inference)
+```
+
+Everything runs on your machine. Nothing leaves without your explicit consent.
+
+---
+
 ## Supported Collectors & AI Tools
 
 ### Collectors (what MyContextPort knows about you)
@@ -136,15 +212,18 @@ Claude already knows.
 | Linear / Jira | v0.3 | All |
 | **Your collector here** | [Contribute →](docs/docs/collectors/writing-a-collector.md) | |
 
-### AI Tool Integrations
+### AI Tool & App Integrations
 
-| Tool | Status |
-|------|--------|
-| Claude (Anthropic) | v0.1 via MCP |
-| Ollama (local models) | v0.2 native |
-| ChatGPT / GPT-4 | v0.2 via proxy |
-| Gemini | v0.2 |
-| Any MCP-compatible tool | v0.1 |
+| Tool | Type | Status |
+|------|------|--------|
+| Claude Desktop (Anthropic) | MCP client | v0.1 |
+| OpenClaw | MCP client | v0.1 |
+| Cursor | MCP client | v0.1 |
+| Zed | MCP client | v0.1 |
+| Any MCP-compatible tool | MCP client | v0.1 |
+| Ollama (local inference) | Inference backend | v0.2 |
+| ChatGPT / GPT-4 | MCP client | v0.2 |
+| Gemini | MCP client | v0.2 |
 
 ---
 
