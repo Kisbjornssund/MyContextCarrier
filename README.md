@@ -1,7 +1,7 @@
 # MyContextPort
 
-### The Universal Personal Memory Layer for AI
-
+### The Universal Personal and Portable Memory Layer for AI
+MyContextPort is a privacy-gated MCP server that collects personal context locally, enforces user-defined sensitivity rules per model, and injects the right context into any MCP-compatible AI client.
 > *Your context. Your data. Every AI, everywhere.*
 
 ---
