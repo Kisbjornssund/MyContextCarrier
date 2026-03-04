@@ -24,6 +24,10 @@ pub enum RuleType {
     Source,
     /// Match on text content using a pattern.
     ContentPattern,
+    /// Match on the backend type ("cloud" or "local"). Used by the agent
+    /// layer to select inference backend; evaluated separately from item
+    /// injection rules.
+    BackendScope,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]

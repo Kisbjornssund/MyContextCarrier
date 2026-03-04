@@ -23,3 +23,5 @@ dirs = { workspace = true }
 
 mycontextport-core = { path = "../mycontextport-core" }
 mycontextport-mcp = { path = "../mycontextport-mcp" }
+mycontextport-privacy = { path = "../mycontextport-privacy" }
+mycontextport-store = { path = "../mycontextport-store" }

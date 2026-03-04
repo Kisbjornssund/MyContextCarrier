@@ -4,6 +4,7 @@ use mycontextport_core::{
     collectors::ShellHistoryCollector,
     daemon::{Daemon, DaemonConfig},
 };
+use mycontextport_privacy::PrivacyEngine;
 use mycontextport_store::ContextStore;
 use std::sync::Arc;
 
@@ -203,10 +204,18 @@ async fn cmd_mcp_serve(config: &DaemonConfig) -> anyhow::Result<()> {
     let store = Arc::new(ContextStore::open(&config.store_path)?);
     store.initialize()?;
 
+    // Load privacy rules from `<store_path>/privacy.toml` if it exists.
+    // Falls back to an allow-all engine so the server works out of the box.
+    let privacy_config_path = config.store_path.join("privacy.toml");
+    let engine = Arc::new(
+        PrivacyEngine::from_config_file(&privacy_config_path).unwrap_or_else(|e| {
+            tracing::warn!(error = %e, "Failed to load privacy config — using allow-all");
+            PrivacyEngine::new(vec![])
+        }),
+    );
+
     // Build the collector list.
-    let collectors: Vec<Box<dyn Collector>> = vec![
-        Box::new(ShellHistoryCollector::new()),
-    ];
+    let collectors: Vec<Box<dyn Collector>> = vec![Box::new(ShellHistoryCollector::new())];
 
     // Spawn the background collection loop.
     let daemon = Daemon::new(config.clone());
@@ -216,7 +225,7 @@ async fn cmd_mcp_serve(config: &DaemonConfig) -> anyhow::Result<()> {
     });
 
     // Start the MCP stdio server on the main task — blocks until stdin closes.
-    mycontextport_mcp::serve_stdio(store).await?;
+    mycontextport_mcp::serve_stdio(store, engine).await?;
 
     Ok(())
 }

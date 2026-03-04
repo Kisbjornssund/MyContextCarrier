@@ -96,4 +96,36 @@ impl ContextStore {
         let count: i64 = stmt.query_row([], |row| row.get(0))?;
         Ok(count)
     }
+
+    /// Record an injection event in the audit log.
+    ///
+    /// - `model`: the MCP client name that received context.
+    /// - `items_used`: IDs of items that were allowed through to the model.
+    /// - `items_blocked`: IDs of items blocked by privacy rules.
+    /// - `rules_applied`: IDs of rules that fired during evaluation.
+    pub fn log_injection(
+        &self,
+        model: &str,
+        items_used: &[&str],
+        items_blocked: &[&str],
+        rules_applied: &[&str],
+    ) -> Result<()> {
+        let id = uuid::Uuid::new_v4().to_string();
+        let now = chrono::Utc::now().timestamp();
+        let items_used_json =
+            serde_json::to_string(items_used).map_err(anyhow::Error::from)?;
+        let items_blocked_json =
+            serde_json::to_string(items_blocked).map_err(anyhow::Error::from)?;
+        let rules_json =
+            serde_json::to_string(rules_applied).map_err(anyhow::Error::from)?;
+
+        let conn = self.conn.lock().unwrap();
+        conn.execute(
+            "INSERT INTO injection_log \
+             (id, injected_at, model, items_used, items_blocked, rules_applied) \
+             VALUES (?, ?, ?, ?, ?, ?)",
+            params![id, now, model, items_used_json, items_blocked_json, rules_json],
+        )?;
+        Ok(())
+    }
 }
