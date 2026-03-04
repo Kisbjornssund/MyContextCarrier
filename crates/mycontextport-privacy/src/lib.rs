@@ -10,6 +10,6 @@ pub mod rule;
 
 pub use engine::PrivacyEngine;
 pub use error::Error;
-pub use rule::{PrivacyRule, RuleAction};
+pub use rule::{PrivacyRule, RuleAction, UnknownClientPolicy};
 
 pub type Result<T> = std::result::Result<T, Error>;

@@ -1,6 +1,6 @@
 //! The privacy rules engine — evaluates rules against context items.
 
-use crate::rule::{PrivacyRule, RuleAction, RuleType};
+use crate::rule::{PrivacyRule, RuleAction, RuleType, UnknownClientPolicy};
 use crate::Result;
 
 /// Decision returned by the engine for a context item.
@@ -13,17 +13,30 @@ pub struct InjectionDecision {
 /// Evaluates privacy rules against context items before injection.
 pub struct PrivacyEngine {
     rules: Vec<PrivacyRule>,
+    /// Fallback for clients whose name matches no `model_scope` in the ruleset.
+    unknown_client_policy: UnknownClientPolicy,
 }
 
 impl PrivacyEngine {
+    /// Create an engine with the given rules.
+    ///
+    /// The unknown client policy defaults to `Allow`, preserving the
+    /// out-of-the-box behaviour where all clients receive all context.
+    /// Use [`from_config_file`] to load a stricter policy from disk.
     pub fn new(rules: Vec<PrivacyRule>) -> Self {
-        Self { rules }
+        Self {
+            rules,
+            unknown_client_policy: UnknownClientPolicy::Allow,
+        }
     }
 
-    /// Load rules from a TOML config file.
+    /// Load rules and the unknown client policy from a TOML config file.
     ///
-    /// Expected format:
+    /// Config format:
     /// ```toml
+    /// [defaults]
+    /// unknown_client = "deny"   # allow | deny  (default: allow)
+    ///
     /// [[rules]]
     /// id = "block-health-from-cloud"
     /// rule_type = "sensitivity"
@@ -51,13 +64,20 @@ impl PrivacyEngine {
                 e
             ))
         })?;
-        Ok(Self::new(config.rules))
+        Ok(Self {
+            rules: config.rules,
+            unknown_client_policy: config.defaults.unknown_client,
+        })
     }
 
     /// Evaluate rules for a context item against a target model.
     ///
     /// Rules are evaluated in order; the first matching rule wins.
-    /// If no rule matches, the default action is `Allow`.
+    /// If no rule matches, the fallback depends on whether `target_model`
+    /// is a *known* client (appears in at least one `model_scope`) or not:
+    ///
+    /// - Known client → `Allow`
+    /// - Unknown client → the configured `unknown_client` policy
     ///
     /// `ContentPattern` rules are skipped here — use
     /// [`evaluate_with_content`] when item content is available.
@@ -72,10 +92,6 @@ impl PrivacyEngine {
     }
 
     /// Same as [`evaluate`] but also checks `ContentPattern` rules.
-    ///
-    /// Pass the full item text in `item_content` so that keyword-based
-    /// rules (e.g. redacting items that mention "salary" or "diagnosis")
-    /// are honoured.
     pub fn evaluate_with_content(
         &self,
         item_sensitivity: &str,
@@ -113,11 +129,34 @@ impl PrivacyEngine {
             }
         }
 
-        // No rule matched — default: allow.
+        // No rule matched. Fall back based on whether this client is known.
+        let fallback = if self.is_known_client(target_model) {
+            // Client has explicit rules configured — allow whatever wasn't blocked.
+            RuleAction::Allow
+        } else {
+            // Client is unknown — apply the configured policy.
+            match self.unknown_client_policy {
+                UnknownClientPolicy::Allow => RuleAction::Allow,
+                UnknownClientPolicy::Deny => RuleAction::Block,
+            }
+        };
+
         InjectionDecision {
-            action: RuleAction::Allow,
+            action: fallback,
             rules_matched: vec![],
         }
+    }
+
+    /// Returns `true` if `client_name` matches the `model_scope` of at least
+    /// one rule in the ruleset. Rules without a `model_scope` do not make
+    /// a client "known" — they apply to everyone regardless.
+    fn is_known_client(&self, client_name: &str) -> bool {
+        self.rules.iter().any(|rule| {
+            rule.model_scope
+                .as_ref()
+                .map(|scope| glob_match(scope, client_name))
+                .unwrap_or(false)
+        })
     }
 }
 
@@ -152,16 +191,24 @@ fn glob_inner(p: &[u8], v: &[u8]) -> bool {
 }
 
 /// TOML config file structure.
-#[derive(serde::Deserialize)]
+#[derive(serde::Deserialize, Default)]
 struct PrivacyConfig {
     #[serde(default)]
+    defaults: DefaultsConfig,
+    #[serde(default)]
     rules: Vec<PrivacyRule>,
+}
+
+#[derive(serde::Deserialize, Default)]
+struct DefaultsConfig {
+    #[serde(default)]
+    unknown_client: UnknownClientPolicy,
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::rule::{RuleAction, RuleType};
+    use crate::rule::{RuleAction, RuleType, UnknownClientPolicy};
 
     fn rule(id: &str, rtype: RuleType, pattern: &str, action: RuleAction, scope: Option<&str>) -> PrivacyRule {
         PrivacyRule {
@@ -171,6 +218,10 @@ mod tests {
             action,
             model_scope: scope.map(|s| s.to_string()),
         }
+    }
+
+    fn engine_with_policy(rules: Vec<PrivacyRule>, policy: UnknownClientPolicy) -> PrivacyEngine {
+        PrivacyEngine { rules, unknown_client_policy: policy }
     }
 
     #[test]
@@ -229,11 +280,10 @@ mod tests {
         let engine = PrivacyEngine::new(vec![
             rule("r1", RuleType::Sensitivity, "health", RuleAction::Block, Some("claude*")),
         ]);
-        // Blocked for Claude models
         let d = engine.evaluate("health", "shell", None, "claude-desktop");
         assert!(matches!(d.action, RuleAction::Block));
 
-        // Allowed for non-Claude models (e.g. local Ollama)
+        // ollama has no matching model_scope → it's unknown → Allow (default policy)
         let d2 = engine.evaluate("health", "shell", None, "ollama-llama3");
         assert!(matches!(d2.action, RuleAction::Allow));
     }
@@ -243,11 +293,9 @@ mod tests {
         let engine = PrivacyEngine::new(vec![
             rule("r1", RuleType::ContentPattern, "salary", RuleAction::Block, None),
         ]);
-        // evaluate() (no content) → skips ContentPattern → Allow
         let d = engine.evaluate("work", "notes", None, "claude");
         assert!(matches!(d.action, RuleAction::Allow));
 
-        // evaluate_with_content() → matches
         let d2 = engine.evaluate_with_content(
             "work", "notes", None,
             Some("My salary is $200k"),
@@ -263,8 +311,61 @@ mod tests {
             rule("r2", RuleType::Sensitivity, "health", RuleAction::Block, None),
         ]);
         let d = engine.evaluate("health", "shell", None, "any");
-        // r1 wins — Summarize, not Block
         assert!(matches!(d.action, RuleAction::Summarize));
         assert_eq!(d.rules_matched, vec!["r1"]);
+    }
+
+    // --- Unknown client policy tests ---
+
+    #[test]
+    fn unknown_client_allow_policy_is_default() {
+        // No rules at all → client is unknown → default Allow policy
+        let engine = PrivacyEngine::new(vec![]);
+        let d = engine.evaluate("health", "shell", None, "mystery-client");
+        assert!(matches!(d.action, RuleAction::Allow));
+    }
+
+    #[test]
+    fn unknown_client_deny_policy_blocks_unrecognised() {
+        let engine = engine_with_policy(
+            vec![rule("r1", RuleType::Sensitivity, "health", RuleAction::Block, Some("claude*"))],
+            UnknownClientPolicy::Deny,
+        );
+        // "mystery-client" has no model_scope match → unknown → Deny policy → Block
+        let d = engine.evaluate("work", "shell", None, "mystery-client");
+        assert!(matches!(d.action, RuleAction::Block));
+    }
+
+    #[test]
+    fn known_client_with_deny_policy_still_gets_allow_fallback() {
+        // claude* is a known client (has rules scoped to it).
+        // For items that no rule matches, known clients get Allow — not Deny.
+        let engine = engine_with_policy(
+            vec![rule("r1", RuleType::Sensitivity, "health", RuleAction::Block, Some("claude*"))],
+            UnknownClientPolicy::Deny,
+        );
+        // "work" item for claude: no rule matches (only health is blocked) → known client → Allow
+        let d = engine.evaluate("work", "shell", None, "claude-desktop");
+        assert!(matches!(d.action, RuleAction::Allow));
+    }
+
+    #[test]
+    fn is_known_client_requires_model_scope() {
+        // A rule with no model_scope does NOT make any client "known"
+        let engine = PrivacyEngine::new(vec![
+            rule("r1", RuleType::Sensitivity, "health", RuleAction::Block, None),
+        ]);
+        assert!(!engine.is_known_client("claude-desktop"));
+        assert!(!engine.is_known_client("anything"));
+    }
+
+    #[test]
+    fn is_known_client_matches_scope_glob() {
+        let engine = PrivacyEngine::new(vec![
+            rule("r1", RuleType::Sensitivity, "health", RuleAction::Block, Some("claude*")),
+        ]);
+        assert!(engine.is_known_client("claude-desktop"));
+        assert!(engine.is_known_client("claude-opus-4"));
+        assert!(!engine.is_known_client("gpt-4"));
     }
 }

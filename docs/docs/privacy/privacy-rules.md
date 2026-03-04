@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Privacy Rules
 
-MyContextPort evaluates a privacy rules file before injecting any context into an AI model. Rules are evaluated in order — the first matching rule wins. If no rule matches, the item is **allowed** by default.
+MyContextPort evaluates a privacy rules file before injecting any context into an AI model. Rules are evaluated in order — the first matching rule wins. If no rule matches, the fallback depends on whether the connecting client is *known* (see [Unknown client policy](#unknown-client-policy) below).
 
 ## Config file location
 
@@ -16,6 +16,23 @@ Place your rules at:
 ```
 
 The file is created (empty = allow-all) the first time you run `mycontextport init`.
+
+---
+
+## Defaults
+
+Optional global settings placed at the top of the file:
+
+```toml
+[defaults]
+unknown_client = "deny"   # allow | deny  (default: allow)
+```
+
+| Setting | Values | Default | Effect |
+|---|---|---|---|
+| `unknown_client` | `allow` / `deny` | `allow` | What to do when a connecting client's name matches no `model_scope` in the ruleset |
+
+See [Unknown client policy](#unknown-client-policy) for details.
 
 ---
 
@@ -110,6 +127,56 @@ rule_type = "content_pattern"
 pattern = "salary"
 action = "block"
 model_scope = "claude*"
+```
+
+---
+
+## Unknown client policy
+
+A client is **known** if its `clientInfo.name` (sent during the MCP `initialize` handshake) matches the `model_scope` of at least one rule. A client is **unknown** if it matches no `model_scope` anywhere in the ruleset.
+
+Rules without a `model_scope` apply to all clients but do not make any client "known".
+
+| Client status | No rule matches | Rule matches |
+|---|---|---|
+| Known | `allow` (always) | Rule's action |
+| Unknown | `unknown_client` policy | Rule's action |
+
+**With the default `unknown_client = "allow"`:** Every client behaves identically. A client claiming to be `"ollama-local"` that you never configured gets the same treatment as any other client — whatever your rules say. This is the safe default for getting started.
+
+**With `unknown_client = "deny"`:** Any client whose name doesn't appear in a `model_scope` is blocked entirely. Prevents a rogue or misconfigured application from receiving context by using a name you haven't explicitly permitted.
+
+### Example: lock down to known clients only
+
+```toml
+[defaults]
+unknown_client = "deny"
+
+# Claude Desktop is a known client — health and financial are blocked,
+# everything else is allowed (known client allow-fallback applies).
+[[rules]]
+id = "block-health-claude"
+rule_type = "sensitivity"
+pattern = "health"
+action = "block"
+model_scope = "claude*"
+
+[[rules]]
+id = "block-financial-claude"
+rule_type = "sensitivity"
+pattern = "financial"
+action = "block"
+model_scope = "claude*"
+
+# Ollama is a known client — no restrictions.
+[[rules]]
+id = "allow-all-ollama"
+rule_type = "sensitivity"
+pattern = "*"
+action = "allow"
+model_scope = "ollama*"
+
+# Any other client name → unknown → deny policy → blocked entirely.
 ```
 
 ---

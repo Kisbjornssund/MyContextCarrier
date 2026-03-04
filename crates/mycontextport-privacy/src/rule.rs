@@ -40,3 +40,22 @@ pub enum RuleAction {
     /// Inject only a summary, not full content.
     Summarize,
 }
+
+/// What to do when no rule matches and the connecting client's name does not
+/// appear in any `model_scope` across the entire ruleset.
+///
+/// Set via `[defaults] unknown_client = "deny"` in `privacy.toml`.
+/// Defaults to `Allow` so the server works without any config file.
+#[derive(Debug, Clone, Default, Serialize, Deserialize, PartialEq)]
+#[serde(rename_all = "snake_case")]
+pub enum UnknownClientPolicy {
+    /// Unrecognised clients are treated the same as known ones: allow
+    /// anything not explicitly blocked. Preserves existing allow-all
+    /// behaviour when no config file is present.
+    #[default]
+    Allow,
+    /// Block all context for clients whose name does not match any rule's
+    /// `model_scope`. Prevents a rogue or misconfigured client from
+    /// bypassing rules by misrepresenting its identity.
+    Deny,
+}
