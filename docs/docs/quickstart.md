@@ -1,33 +1,33 @@
 ---
 sidebar_position: 1
 title: Quickstart
-description: Install ContextGenOS and connect it to Claude in under 10 minutes.
+description: Install MyContextPort and connect it to Claude in under 10 minutes.
 ---
 
 # Quickstart
 
 **Time to complete: 10 minutes**
 
-By the end of this guide, you will have ContextGenOS running locally, connected to Claude via MCP, and Claude will already know what you have been working on, without you typing a word of context.
+By the end of this guide, you will have MyContextPort running locally, connected to Claude via MCP, and Claude will already know what you have been working on, without you typing a word of context.
 
 ---
 
 ## Step 1: Install
 
 ```bash
-curl -fsSL https://contextgenos.dev/install.sh | sh
+curl -fsSL https://mycontextport.dev/install.sh | sh
 ```
 
 Or with Docker (no Rust installation required):
 
 ```bash
-docker pull ghcr.io/kisbjornssund/contextgenos:latest
+docker pull ghcr.io/kisbjornssund/mycontextport:latest
 ```
 
 Verify the install:
 
 ```bash
-contextgenos --version
+mycontextport --version
 ```
 
 ---
@@ -37,7 +37,7 @@ contextgenos --version
 Run the interactive setup wizard:
 
 ```bash
-contextgenos init --wizard
+mycontextport init --wizard
 ```
 
 The wizard asks four questions:
@@ -62,7 +62,7 @@ Add the following to your Claude desktop configuration file.
 {
   "mcp_servers": [
     {
-      "name": "contextgenos",
+      "name": "mycontextport",
       "url": "http://localhost:8765/mcp"
     }
   ]
@@ -72,7 +72,7 @@ Add the following to your Claude desktop configuration file.
 Start the MCP server:
 
 ```bash
-contextgenos mcp serve --port 8765
+mycontextport mcp serve --port 8765
 ```
 
 ---
@@ -88,17 +88,17 @@ Claude should respond with context drawn from your notes and browser history, wi
 If Claude does not show context, run:
 
 ```bash
-contextgenos status
-contextgenos inspect --limit 10
+mycontextport status
+mycontextport inspect --limit 10
 ```
 
-This shows what ContextGenOS has collected and whether the MCP server is reachable.
+This shows what MyContextPort has collected and whether the MCP server is reachable.
 
 ---
 
 ## What to do next
 
-- [Inspect your context store](../cli/inspect.md): see exactly what ContextGenOS knows
+- [Inspect your context store](../cli/inspect.md): see exactly what MyContextPort knows
 - [Configure privacy rules](../privacy/rules.md): control what goes to which model
 - [Build a collector](../collectors/writing-a-collector.md): add support for a tool you use
 - [Connect another AI tool](../mcp/integrations.md): Ollama, GPT-4, Cursor

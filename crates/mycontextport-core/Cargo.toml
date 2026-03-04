@@ -1,0 +1,27 @@
+[package]
+name = "mycontextport-core"
+description = "MyContextPort core daemon — orchestrates context collection, storage, and injection"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[dependencies]
+tokio = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+tracing = { workspace = true }
+anyhow = { workspace = true }
+thiserror = { workspace = true }
+chrono = { workspace = true }
+uuid = { workspace = true }
+dirs = { workspace = true }
+async-trait = { workspace = true }
+
+mycontextport-store = { path = "../mycontextport-store" }
+mycontextport-graph = { path = "../mycontextport-graph" }
+mycontextport-privacy = { path = "../mycontextport-privacy" }
+
+[dev-dependencies]
+tokio = { workspace = true, features = ["test-util"] }

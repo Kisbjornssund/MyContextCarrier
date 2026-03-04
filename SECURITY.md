@@ -10,7 +10,7 @@
 
 **Do not open a public GitHub issue for security vulnerabilities.**
 
-Report vulnerabilities by email to **security@contextgenos.dev**. Include:
+Report vulnerabilities by email to **security@mycontextport.dev**. Include:
 
 - A descriptive title and severity assessment (low / medium / high / critical)
 - The component affected (core daemon, MCP server, privacy rules engine, a specific collector, SDK)
@@ -34,7 +34,7 @@ We ask that you give us a reasonable time to address the issue before any public
 
 ## Scope
 
-ContextGenOS is local-first software. The primary security concern is ensuring that:
+MyContextPort is local-first software. The primary security concern is ensuring that:
 
 - Data never leaves the user's machine unless explicitly configured to do so
 - Encryption keys are never transmitted or stored in plaintext

@@ -1,12 +1,12 @@
-# ContextGenOS installer for Windows
-# Usage: irm https://contextgenos.dev/install.ps1 | iex
+# MyContextPort installer for Windows
+# Usage: irm https://mycontextport.dev/install.ps1 | iex
 
 $ErrorActionPreference = 'Stop'
 
-$Repo       = "Kisbjornssund/ContextGenOS"
-$Binary     = "contextgenos.exe"
-$Artifact   = "contextgenos-windows-x86_64.exe"
-$InstallDir = "$env:LOCALAPPDATA\Programs\ContextGenOS"
+$Repo       = "Kisbjornssund/MyContextPort"
+$Binary     = "mycontextport.exe"
+$Artifact   = "mycontextport-windows-x86_64.exe"
+$InstallDir = "$env:LOCALAPPDATA\Programs\MyContextPort"
 
 function Write-Step($msg) { Write-Host "==> $msg" -ForegroundColor Green }
 function Write-Fail($msg) { Write-Host "error: $msg" -ForegroundColor Red; exit 1 }
@@ -39,7 +39,7 @@ $baseUrl = "https://github.com/$Repo/releases/download/$version"
 $tmpDir  = Join-Path ([System.IO.Path]::GetTempPath()) ([System.Guid]::NewGuid().ToString())
 New-Item -ItemType Directory -Path $tmpDir | Out-Null
 
-Write-Step "Downloading ContextGenOS $version..."
+Write-Step "Downloading MyContextPort $version..."
 Invoke-WebRequest "$baseUrl/$Artifact"        -OutFile "$tmpDir\$Binary"        -UseBasicParsing
 Invoke-WebRequest "$baseUrl/$Artifact.sha256" -OutFile "$tmpDir\$Artifact.sha256" -UseBasicParsing
 
@@ -77,15 +77,15 @@ if ($userPath -notlike "*$InstallDir*") {
 
 # ── Done ──────────────────────────────────────────────────────────────────────
 
-Write-Step "ContextGenOS $version installed."
+Write-Step "MyContextPort $version installed."
 & "$InstallDir\$Binary" --version
 
 Write-Host @"
 
 Next steps:
-  contextgenos init       Set up your local context store
-  contextgenos --help     See all commands
-  contextgenos mcp serve  Start the MCP server for AI tool integration
+  mycontextport init       Set up your local context store
+  mycontextport --help     See all commands
+  mycontextport mcp serve  Start the MCP server for AI tool integration
 
-Documentation: https://docs.contextgenos.dev
+Documentation: https://docs.mycontextport.dev
 "@ -ForegroundColor Cyan

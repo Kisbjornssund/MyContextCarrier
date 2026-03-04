@@ -55,7 +55,7 @@ Closes #
 - [ ] Implements all `BaseCollector` interface methods
 - [ ] Does not make network requests during `collect()` or in tests
 - [ ] Includes at least 5 unit tests covering the main logic paths
-- [ ] Passes `contextgenos dev test-collector` validation
+- [ ] Passes `mycontextport dev test-collector` validation
 - [ ] Tested locally on: (check all that apply) macOS / Linux / Windows
 - [ ] `collectors/REGISTRY.md` entry added or updated
 - [ ] Collector `README.md` written in the collector directory

@@ -18,9 +18,9 @@ import tempfile
 import time
 from pathlib import Path
 
-from contextgenos import BaseCollector, CollectorHealth, ContextItem
-from contextgenos.collector import CollectorError
-from contextgenos.types import Sensitivity
+from mycontextport import BaseCollector, CollectorHealth, ContextItem
+from mycontextport.collector import CollectorError
+from mycontextport.types import Sensitivity
 
 
 class BrowserCollector(BaseCollector):

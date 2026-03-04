@@ -42,7 +42,7 @@ jobs:
 
       - name: Check coverage
         working-directory: sdk/python
-        run: pytest tests/ --cov=contextgenos --cov-report=term-missing --cov-fail-under=80
+        run: pytest tests/ --cov=mycontextport --cov-report=term-missing --cov-fail-under=80
 
   lint:
     name: Lint
@@ -71,4 +71,4 @@ jobs:
 
       - name: Mypy
         working-directory: sdk/python
-        run: mypy contextgenos/
+        run: mypy mycontextport/

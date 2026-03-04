@@ -2,8 +2,8 @@
 
 import pytest
 
-from contextgenos import BaseCollector, CollectorHealth, ContextItem, Sensitivity
-from contextgenos.collector import CollectorError
+from mycontextport import BaseCollector, CollectorHealth, ContextItem, Sensitivity
+from mycontextport.collector import CollectorError
 
 
 class MinimalCollector(BaseCollector):

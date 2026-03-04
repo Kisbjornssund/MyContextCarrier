@@ -16,7 +16,7 @@ body:
     attributes:
       label: What problem does this solve?
       description: Describe the problem or limitation you are experiencing. Be specific.
-      placeholder: "When I use ContextGenOS with GPT-4, I have no way to see what context was actually injected. I trust the system but cannot verify it."
+      placeholder: "When I use MyContextPort with GPT-4, I have no way to see what context was actually injected. I trust the system but cannot verify it."
     validations:
       required: true
 

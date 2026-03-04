@@ -3,9 +3,9 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "contextgenos"
+name = "mycontextport"
 version = "0.1.0"
-description = "ContextGenOS Python SDK: build context collectors for any data source"
+description = "MyContextPort Python SDK: build context collectors for any data source"
 readme = "README.md"
 license = { text = "MIT" }
 requires-python = ">=3.10"
@@ -34,10 +34,10 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://contextgenos.dev"
-Repository = "https://github.com/Kisbjornssund/ContextGenOS"
-Documentation = "https://docs.contextgenos.dev"
-Issues = "https://github.com/Kisbjornssund/ContextGenOS/issues"
+Homepage = "https://mycontextport.dev"
+Repository = "https://github.com/Kisbjornssund/MyContextPort"
+Documentation = "https://docs.mycontextport.dev"
+Issues = "https://github.com/Kisbjornssund/MyContextPort/issues"
 
 [tool.ruff]
 line-length = 100

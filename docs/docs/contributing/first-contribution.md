@@ -13,8 +13,8 @@ This guide gets you from "just arrived" to "PR submitted" in under 3 hours.
 ## Step 1: Set up your environment (30 minutes)
 
 ```bash
-git clone https://github.com/Kisbjornssund/ContextGenOS.git
-cd ContextGenOS
+git clone https://github.com/Kisbjornssund/MyContextPort.git
+cd MyContextPort
 ./scripts/dev-setup.sh
 ```
 
@@ -27,7 +27,7 @@ cargo build --workspace        # Should complete without errors
 cd sdk/python && pytest tests/ # Should pass all tests
 ```
 
-You are now a ContextGenOS developer.
+You are now a MyContextPort developer.
 
 ---
 
@@ -37,13 +37,13 @@ Pick the option that matches your experience and time available:
 
 ### Option A: Fix a documentation issue (30 minutes, any experience)
 
-Look for issues labeled [`area: docs` + `good first issue`](https://github.com/Kisbjornssund/ContextGenOS/issues?q=is%3Aopen+label%3A%22good+first+issue%22+label%3A%22area%3A+docs%22).
+Look for issues labeled [`area: docs` + `good first issue`](https://github.com/Kisbjornssund/MyContextPort/issues?q=is%3Aopen+label%3A%22good+first+issue%22+label%3A%22area%3A+docs%22).
 
 These are usually: missing steps in a guide, a confusing error message, or an outdated code example. Find one, fix it, open a PR.
 
 ### Option B: Add a test (1 hour, any experience)
 
-Look for issues labeled [`good first issue`](https://github.com/Kisbjornssund/ContextGenOS/issues?q=is%3Aopen+label%3A%22good+first+issue%22) and search for "add test" or "missing test coverage."
+Look for issues labeled [`good first issue`](https://github.com/Kisbjornssund/MyContextPort/issues?q=is%3Aopen+label%3A%22good+first+issue%22) and search for "add test" or "missing test coverage."
 
 Run the existing tests first to understand the patterns:
 
@@ -59,10 +59,10 @@ The stub has all the scaffolding in place. You only need to write the data extra
 
 ### Option D: Build a new collector (afternoon, Python)
 
-Pick any data source from the [Collector Registry](https://github.com/Kisbjornssund/ContextGenOS/blob/main/collectors/REGISTRY.md) under "Requested." Read [Writing a Collector](writing-a-collector.md) and scaffold it:
+Pick any data source from the [Collector Registry](https://github.com/Kisbjornssund/MyContextPort/blob/main/collectors/REGISTRY.md) under "Requested." Read [Writing a Collector](writing-a-collector.md) and scaffold it:
 
 ```bash
-contextgenos dev new-collector --name your-tool
+mycontextport dev new-collector --name your-tool
 ```
 
 ---
@@ -72,7 +72,7 @@ contextgenos dev new-collector --name your-tool
 1. Create a branch: `git checkout -b fix/your-description` or `git checkout -b feat/collector-name`
 2. Make your changes
 3. Run the relevant tests to confirm they pass
-4. For Python changes: run `ruff check . && mypy contextgenos/` from `sdk/python/`
+4. For Python changes: run `ruff check . && mypy mycontextport/` from `sdk/python/`
 5. For Rust changes: run `cargo clippy --workspace && cargo fmt --check`
 
 ---

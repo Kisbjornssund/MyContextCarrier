@@ -24,6 +24,10 @@ docs/.docusaurus/
 .contextgenos/
 *.contextgenos-backup
 
+# Local-only: Claude session data, private strategy docs (never push)
+.claude/
+private/
+
 # macOS
 .DS_Store
 

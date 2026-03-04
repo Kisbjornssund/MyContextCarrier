@@ -1,4 +1,4 @@
-# ContextGenOS
+# MyContextPort
 
 ### The Universal Personal Memory Layer for AI
 
@@ -6,7 +6,7 @@
 
 ---
 
-[![CI](https://github.com/Kisbjornssund/ContextGenOS/actions/workflows/ci.yml/badge.svg)](https://github.com/Kisbjornssund/ContextGenOS/actions/workflows/ci.yml)
+[![CI](https://github.com/Kisbjornssund/MyContextPort/actions/workflows/ci.yml/badge.svg)](https://github.com/Kisbjornssund/MyContextPort/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Status: Pre-Alpha](https://img.shields.io/badge/Status-Pre--Alpha-orange.svg)]()
 [![MCP Compatible](https://img.shields.io/badge/MCP-Compatible-green.svg)]()
@@ -16,10 +16,10 @@
 ---
 
 <!-- DEMO GIF PLACEHOLDER -->
-<!-- Replace with: terminal recording showing `contextgenos mcp serve` running, -->
+<!-- Replace with: terminal recording showing `mycontextport mcp serve` running, -->
 <!-- then Claude demonstrating awareness of context it was never told.        -->
 <!-- This is the single most important asset in this README.                  -->
-<!-- ![ContextGenOS Demo](docs/assets/demo.gif)                                  -->
+<!-- ![MyContextPort Demo](docs/assets/demo.gif)                                  -->
 
 ---
 
@@ -33,13 +33,13 @@
 - Option A: Have AI that knows you, but surrender your personal data to corporate clouds
 - Option B: Keep your data private, but re-explain yourself every single session
 
-**ContextGenOS solves both.** Your context is captured and stored locally on your machine. You decide exactly what gets shared with which AI tool — and nothing leaves your device unless you choose to inject it.
+**MyContextPort solves both.** Your context is captured and stored locally on your machine. You decide exactly what gets shared with which AI tool — and nothing leaves your device unless you choose to inject it.
 
 ---
 
 ## Privacy Is a Spectrum, Not a Mandate
 
-ContextGenOS respects that different users have different needs:
+MyContextPort respects that different users have different needs:
 
 | Mode | What it does | Who it's for |
 |------|-------------|--------------|
@@ -48,33 +48,33 @@ ContextGenOS respects that different users have different needs:
 | **Transparent** | Full audit log of every injection: see exactly what data each model received | Auditors, the curious |
 | **Export / delete** | Full data portability at any time. Delete everything. It's yours. | Everyone |
 
-You don't have to care about privacy to benefit from ContextGenOS. But if you do, ContextGenOS is the only solution that doesn't force you to compromise.
+You don't have to care about privacy to benefit from MyContextPort. But if you do, MyContextPort is the only solution that doesn't force you to compromise.
 
 ---
 
 ## Install in 3 Commands
 
 ```bash
-# Install ContextGenOS
-curl -fsSL https://contextgenos.dev/install.sh | sh
+# Install MyContextPort
+curl -fsSL https://mycontextport.dev/install.sh | sh
 
 # Initialize your context store (interactive wizard)
-contextgenos init --wizard
+mycontextport init --wizard
 
 # Connect to Claude via MCP
-contextgenos mcp serve --port 8765
+mycontextport mcp serve --port 8765
 ```
 
 Or with Docker:
 ```bash
-docker run -v ~/.contextgenos:/data -p 8765:8765 ghcr.io/kisbjornssund/contextgenos:latest
+docker run -v ~/.mycontextport:/data -p 8765:8765 ghcr.io/kisbjornssund/mycontextport:latest
 ```
 
 Then add this to your Claude (or any MCP-compatible tool) config:
 ```json
 {
   "mcp_servers": [
-    { "name": "contextgenos", "url": "http://localhost:8765/mcp" }
+    { "name": "mycontextport", "url": "http://localhost:8765/mcp" }
   ]
 }
 ```
@@ -83,7 +83,7 @@ Open Claude. Ask: *"What have I been working on?"*
 
 Claude already knows.
 
-> **Note:** ContextGenOS is pre-alpha. The API is unstable. We love early contributors. [See how to help.](CONTRIBUTING.md)
+> **Note:** MyContextPort is pre-alpha. The API is unstable. We love early contributors. [See how to help.](CONTRIBUTING.md)
 
 ---
 
@@ -122,7 +122,7 @@ Claude already knows.
 
 ## Supported Collectors & AI Tools
 
-### Collectors (what ContextGenOS knows about you)
+### Collectors (what MyContextPort knows about you)
 
 | Collector | Status | Platform |
 |-----------|--------|----------|
@@ -162,11 +162,11 @@ Claude already knows.
 
 ## Contributing
 
-ContextGenOS lives or dies by its contributor community. The plugin architecture is designed so you can ship something meaningful in an afternoon.
+MyContextPort lives or dies by its contributor community. The plugin architecture is designed so you can ship something meaningful in an afternoon.
 
 **Build a collector** (Python, any experience level):
 ```python
-from contextgenos import BaseCollector, ContextItem
+from mycontextport import BaseCollector, ContextItem
 
 class MyCollector(BaseCollector):
     """Collect context from my favorite tool."""
@@ -182,7 +182,7 @@ class MyCollector(BaseCollector):
 
 Scaffold a new collector instantly:
 ```bash
-contextgenos dev new-collector --name my-tool --platform macos,linux
+mycontextport dev new-collector --name my-tool --platform macos,linux
 ```
 
 **Other ways to contribute:**
@@ -204,7 +204,7 @@ contextgenos dev new-collector --name my-tool --platform macos,linux
 
 Personal context, the accumulated record of how you think, what you work on, who you are professionally and intellectually, is among the most intimate data you generate. It should not be owned by any company. It should not be used to train models without explicit consent. It should not be locked inside any application.
 
-ContextGenOS is infrastructure for AI that respects human sovereignty. It is not a product. It is a public good.
+MyContextPort is infrastructure for AI that respects human sovereignty. It is not a product. It is a public good.
 
 [Read the full Manifesto →](MANIFESTO.md)
 
@@ -213,9 +213,9 @@ ContextGenOS is infrastructure for AI that respects human sovereignty. It is not
 ## Community
 
 - **Discord:** [discord.gg/NvqtCBRr](https://discord.gg/NvqtCBRr)
-- **GitHub Discussions:** [Discussions](https://github.com/Kisbjornssund/ContextGenOS/discussions)
-- **Twitter/X:** [@contextgenosdev](https://x.com/contextgenosdev)
-- **Docs:** [docs.contextgenos.dev](https://docs.contextgenos.dev)
+- **GitHub Discussions:** [Discussions](https://github.com/Kisbjornssund/MyContextPort/discussions)
+- **Twitter/X:** [@mycontextportdev](https://x.com/mycontextportdev)
+- **Docs:** [docs.mycontextport.dev](https://docs.mycontextport.dev)
 
 ---
 

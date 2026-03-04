@@ -14,8 +14,8 @@ import os
 import platform
 from pathlib import Path
 
-from contextgenos import BaseCollector, CollectorHealth, ContextItem
-from contextgenos.types import Sensitivity
+from mycontextport import BaseCollector, CollectorHealth, ContextItem
+from mycontextport.types import Sensitivity
 
 
 class CalendarCollector(BaseCollector):

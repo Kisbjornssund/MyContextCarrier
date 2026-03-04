@@ -9,7 +9,7 @@ function Hero() {
   return (
     <header className={clsx('hero hero--primary', styles.hero)}>
       <div className="container">
-        <h1 className="hero__title">ContextGenOS</h1>
+        <h1 className="hero__title">MyContextPort</h1>
         <p className="hero__subtitle">
           Your personal AI memory layer. Local. Private. Yours.
         </p>
@@ -23,7 +23,7 @@ function Hero() {
           </Link>
           <Link
             className="button button--outline button--secondary button--lg"
-            href="https://github.com/Kisbjornssund/ContextGenOS"
+            href="https://github.com/Kisbjornssund/MyContextPort"
           >
             GitHub
           </Link>
@@ -95,7 +95,7 @@ export default function Home() {
             <h2>Ready to get started?</h2>
             <p>Install in one command, connect to Claude in under 10 minutes.</p>
             <pre className={styles.installCmd}>
-              curl -fsSL https://contextgenos.dev/install.sh | sh
+              curl -fsSL https://mycontextport.dev/install.sh | sh
             </pre>
             <Link className="button button--primary button--lg" to="/docs/quickstart">
               Read the Quickstart

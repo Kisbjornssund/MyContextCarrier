@@ -5,8 +5,8 @@ contact_links:
     url: https://discord.gg/NvqtCBRr
     about: For questions, troubleshooting, and general discussion. Faster than GitHub issues.
   - name: Documentation
-    url: https://docs.contextgenos.dev
+    url: https://docs.mycontextport.dev
     about: Quickstart guide, collector spec, API reference, and architecture docs.
   - name: GitHub Discussions
-    url: https://github.com/Kisbjornssund/ContextGenOS/discussions
+    url: https://github.com/Kisbjornssund/MyContextPort/discussions
     about: For ideas, proposals, and questions that are not bug reports or feature requests.

@@ -6,7 +6,7 @@ description: Build a context collector for any data source in an afternoon.
 
 # Writing a Collector
 
-A collector is a Python class that reads from a local data source and returns `ContextItem` objects. Collectors are the primary contributor pathway. If you use a tool that ContextGenOS does not support yet, you can add it yourself.
+A collector is a Python class that reads from a local data source and returns `ContextItem` objects. Collectors are the primary contributor pathway. If you use a tool that MyContextPort does not support yet, you can add it yourself.
 
 **Prerequisites:** Python basics. Access to the data source you want to collect from.
 
@@ -19,7 +19,7 @@ A collector is a Python class that reads from a local data source and returns `C
 Generate a complete collector stub:
 
 ```bash
-contextgenos dev new-collector --name my-tool --platform macos,linux
+mycontextport dev new-collector --name my-tool --platform macos,linux
 ```
 
 This creates:
@@ -40,8 +40,8 @@ collectors/my-tool/
 Open `collectors/my-tool/collector.py`. Fill in the two required methods:
 
 ```python
-from contextgenos import BaseCollector, ContextItem, CollectorHealth
-from contextgenos.types import Sensitivity
+from mycontextport import BaseCollector, ContextItem, CollectorHealth
+from mycontextport.types import Sensitivity
 
 class MyToolCollector(BaseCollector):
     name = "my-tool"
@@ -88,7 +88,7 @@ class MyToolCollector(BaseCollector):
 ### Sensitivity levels
 
 ```python
-from contextgenos.types import Sensitivity
+from mycontextport.types import Sensitivity
 
 Sensitivity.PUBLIC      # Blog posts, public documentation
 Sensitivity.WORK        # Work notes, project files, GitHub
@@ -104,7 +104,7 @@ Sensitivity.FINANCIAL   # Financial data
 Run the validation tool before writing your own tests:
 
 ```bash
-contextgenos dev test-collector --collector ./collectors/my-tool/collector.py
+mycontextport dev test-collector --collector ./collectors/my-tool/collector.py
 ```
 
 This checks: interface completeness, schema compliance, no network calls, health_check behavior.
@@ -155,7 +155,7 @@ The collector PR review bar is lower than core PRs. If your collector passes val
 - Must NOT require cloud credentials for the v0.1 implementation
 - Must handle missing data source gracefully (return empty list, not raise)
 - Must include at least 5 unit tests
-- Must pass `contextgenos dev test-collector` validation
+- Must pass `mycontextport dev test-collector` validation
 
 ---
 

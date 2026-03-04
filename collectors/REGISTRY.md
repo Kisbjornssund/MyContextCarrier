@@ -1,9 +1,9 @@
 # Collector Registry
 
-This file tracks all ContextGenOS context collectors: shipped, in progress, and requested.
+This file tracks all MyContextPort context collectors: shipped, in progress, and requested.
 
 Before building a new collector, check here to avoid duplicate effort.
-To add an entry, open a [Collector Request issue](https://github.com/Kisbjornssund/ContextGenOS/issues/new?template=collector_request.yml).
+To add an entry, open a [Collector Request issue](https://github.com/Kisbjornssund/MyContextPort/issues/new?template=collector_request.yml).
 
 ---
 
@@ -48,8 +48,8 @@ To add an entry, open a [Collector Request issue](https://github.com/Kisbjornssu
 ## Want to build one?
 
 1. Check the list above for something you use daily
-2. Read [Writing a Collector](https://docs.contextgenos.dev/collectors/writing-a-collector)
-3. Run `contextgenos dev new-collector --name your-tool` to scaffold
+2. Read [Writing a Collector](https://docs.mycontextport.dev/collectors/writing-a-collector)
+3. Run `mycontextport dev new-collector --name your-tool` to scaffold
 4. Open a PR: collector PRs are the fastest path to a merged contribution
 
 Questions? Join `#collectors-dev` on [Discord](https://discord.gg/NvqtCBRr).

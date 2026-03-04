@@ -1,12 +1,12 @@
 [workspace]
 resolver = "2"
 members = [
-    "crates/contextgenos-core",
-    "crates/contextgenos-store",
-    "crates/contextgenos-graph",
-    "crates/contextgenos-mcp",
-    "crates/contextgenos-privacy",
-    "crates/contextgenos-cli",
+    "crates/mycontextport-core",
+    "crates/mycontextport-store",
+    "crates/mycontextport-graph",
+    "crates/mycontextport-mcp",
+    "crates/mycontextport-privacy",
+    "crates/mycontextport-cli",
 ]
 
 [workspace.package]
@@ -14,9 +14,9 @@ version = "0.1.0"
 edition = "2021"
 authors = ["Kimmo Isbjörnssund"]
 license = "MIT"
-repository = "https://github.com/Kisbjornssund/ContextGenOS"
-homepage = "https://contextgenos.dev"
-documentation = "https://docs.contextgenos.dev"
+repository = "https://github.com/Kisbjornssund/MyContextPort"
+homepage = "https://mycontextport.dev"
+documentation = "https://docs.mycontextport.dev"
 rust-version = "1.85"
 
 [workspace.dependencies]

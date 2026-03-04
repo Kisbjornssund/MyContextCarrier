@@ -1,6 +1,6 @@
-# Contributing to ContextGenOS
+# Contributing to MyContextPort
 
-ContextGenOS is built by the people who use it. The plugin architecture is designed so that a meaningful contribution is possible in an afternoon. Every data source you can imagine is a collector waiting to be built.
+MyContextPort is built by the people who use it. The plugin architecture is designed so that a meaningful contribution is possible in an afternoon. Every data source you can imagine is a collector waiting to be built.
 
 ---
 
@@ -15,7 +15,7 @@ ContextGenOS is built by the people who use it. The plugin architecture is desig
 | [Core Daemon](#core-daemon) | Rust performance/features | Rust, async systems | Days |
 | [Documentation](#documentation) | Guides, references | Writing ability | 1–3 hours |
 
-**Not sure where to start?** Check [open issues labeled `good first issue`](https://github.com/Kisbjornssund/ContextGenOS/issues?q=is%3Aopen+label%3A%22good+first+issue%22).
+**Not sure where to start?** Check [open issues labeled `good first issue`](https://github.com/Kisbjornssund/MyContextPort/issues?q=is%3Aopen+label%3A%22good+first+issue%22).
 
 **Have a question?** Join `#contributing` on [Discord](https://discord.gg/NvqtCBRr) before opening an issue.
 
@@ -30,7 +30,7 @@ Open a PR directly. No prior discussion needed. Include reproduction steps and y
 These are the most welcome contributions. For new collectors, no prior discussion is needed, just follow the spec below and open a PR.
 
 ### New core features or architecture changes
-Start a [GitHub Discussion](https://github.com/Kisbjornssund/ContextGenOS/discussions) or ask in `#core-dev` on Discord before writing code. This prevents wasted effort on approaches that won't be merged.
+Start a [GitHub Discussion](https://github.com/Kisbjornssund/MyContextPort/discussions) or ask in `#core-dev` on Discord before writing code. This prevents wasted effort on approaches that won't be merged.
 
 ### Questions
 Use Discord `#getting-started` or `#collectors` before opening a GitHub issue.
@@ -45,7 +45,7 @@ Collectors are the primary contributor pathway. Each collector is a Python class
 
 Generate a collector scaffold:
 ```bash
-contextgenos dev new-collector --name my-tool --platform macos,linux
+mycontextport dev new-collector --name my-tool --platform macos,linux
 ```
 
 This creates:
@@ -59,7 +59,7 @@ Implement the data extraction logic, run the tests, submit a PR.
 ### The BaseCollector interface
 
 ```python
-from contextgenos import BaseCollector, ContextItem, CollectorHealth
+from mycontextport import BaseCollector, ContextItem, CollectorHealth
 from typing import AsyncIterator
 
 class MyToolCollector(BaseCollector):
@@ -101,12 +101,12 @@ class MyToolCollector(BaseCollector):
 - Must include at least 5 unit tests
 - Must be tested on the platforms declared in `platforms`
 - Must include a `README.md` entry in the collector directory
-- Must pass `contextgenos dev test-collector --collector ./collector.py`
+- Must pass `mycontextport dev test-collector --collector ./collector.py`
 
 ### Validate before submitting
 
 ```bash
-contextgenos dev test-collector --collector ./collectors/my-tool/collector.py
+mycontextport dev test-collector --collector ./collectors/my-tool/collector.py
 ```
 
 This runs: interface completeness check, schema validation, network call detection, health_check verification.
@@ -115,7 +115,7 @@ This runs: interface completeness check, schema validation, network call detecti
 
 ## AI Integrations
 
-Integrations connect ContextGenOS's MCP server output to specific AI tools.
+Integrations connect MyContextPort's MCP server output to specific AI tools.
 
 See `docs/docs/contributing/ai-integrations.md` for the integration spec.
 
@@ -206,10 +206,10 @@ Undisclosed AI-generated code that introduces bugs or security issues may result
 
 Maintainers are added deliberately. If you have been an active contributor and want to take on more responsibility:
 
-Email `contributing@contextgenos.dev` with:
+Email `contributing@mycontextport.dev` with:
 - Your GitHub and Discord handles
 - A description of your open source background
-- Which area of ContextGenOS you want to maintain (collectors, core, SDK, docs)
+- Which area of MyContextPort you want to maintain (collectors, core, SDK, docs)
 - A realistic estimate of your weekly time commitment
 
 The team reviews applications carefully and responds within 2 weeks.

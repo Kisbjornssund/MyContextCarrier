@@ -1,4 +1,4 @@
-# The ContextGenOS Manifesto
+# The MyContextPort Manifesto
 
 ## For the Right to Be Known Without Being Watched
 
@@ -15,7 +15,7 @@ Over and over, app by app, session by session. The AI that is supposed to be int
 
 We are building the layer that should have been built at the beginning of the AI revolution: the layer that gives individuals the same advantage that enterprises currently pay fortunes for: AI that genuinely knows its user.
 
-ContextGenOS will support every open standard and resist every proprietary one. We will implement MCP because it is open. We will not implement closed context protocols designed to lock users into specific AI platforms.
+MyContextPort will support every open standard and resist every proprietary one. We will implement MCP because it is open. We will not implement closed context protocols designed to lock users into specific AI platforms.
 
 We are building this because we believe that the right to be known without being watched is worth defending. That personal context is intimate enough to deserve sovereignty. That the accumulation of who you are intellectually and professionally should not be a revenue stream for someone else. This manifesto is a record of why we started. If we ever drift from it, point back here.
 
@@ -71,11 +71,11 @@ First, the hardware exists. Apple Silicon, consumer Nvidia GPUs, and the rapid c
 
 Second, the protocol exists. MCP -the Model Context Protocol - has emerged as a genuine standard for how AI models receive context from external systems. For the first time, there is a common language that a universal context layer can speak to connect with any compliant AI tool. The infrastructure moment has arrived!
 
-These two developments together mean that ContextGenOS is not a speculative project. It is an immediately buildable one so I started it. The technical foundation is there. The timing is right. The only question is whether the open source community will build it before the incumbents make it unnecessary by locking the context layer inside their walled gardens permanently.
+These two developments together mean that MyContextPort is not a speculative project. It is an immediately buildable one so I started it. The technical foundation is there. The timing is right. The only question is whether the open source community will build it before the incumbents make it unnecessary by locking the context layer inside their walled gardens permanently.
 
 We think the open source community will build it. We think that because this community has built every other layer of the infrastructure stack that the world depends on. The operating system. The web server. The database. The programming language. The container runtime. The AI framework. Every time a critical piece of infrastructure emerged, the open source community eventually built the version that respected users and didn't extract rent from them.
 
-Context is the next layer and ContextGenOS is our answer. Participate!
+Context is the next layer and MyContextPort is our answer. Participate!
 
 ---
 
@@ -99,11 +99,11 @@ We are building this in public, with a license that keeps it free forever, with 
 
 ### Our Commitments
 
-**To users:** Your context will never leave your machine without your explicit command. You will always be able to see exactly what ContextGenOS knows about you and exactly what context was injected into any conversation. You will be able to delete everything. You will be able to export everything. These are not features we might add. They are promises that are encoded in the architecture.
+**To users:** Your context will never leave your machine without your explicit command. You will always be able to see exactly what MyContextPort knows about you and exactly what context was injected into any conversation. You will be able to delete everything. You will be able to export everything. These are not features we might add. They are promises that are encoded in the architecture.
 
 **To contributors:** The plugin system is designed so that meaningful contribution is possible in an afternoon. The codebase will be documented as if documentation is as important as the code itself, because it is. Decisions about architecture and direction will be made in public. No contributor will be surprised by a pivot that serves a business model they didn't sign up for, because there is no business model. There is only the software.
 
-**To the ecosystem:** ContextGenOS will support every open standard and resist every proprietary one. We will implement MCP because it is open. We will not implement closed context protocols designed to lock users into specific AI platforms. We will actively work to make ContextGenOS unnecessary by advocating for privacy-respecting context standards to be adopted natively by AI tools and we will celebrate if we succeed, because the goal is not for ContextGenOS to exist forever, but for users to be in control.
+**To the ecosystem:** MyContextPort will support every open standard and resist every proprietary one. We will implement MCP because it is open. We will not implement closed context protocols designed to lock users into specific AI platforms. We will actively work to make MyContextPort unnecessary by advocating for privacy-respecting context standards to be adopted natively by AI tools and we will celebrate if we succeed, because the goal is not for MyContextPort to exist forever, but for users to be in control.
 
 **To the idea:** We are building this because we believe that the right to be known without being watched is worth defending. That personal context is intimate enough to deserve sovereignty. That the accumulation of who you are intellectually and professionally should not be a revenue stream for someone else. This manifesto is a record of why we started. If we ever drift from it, point back here.
 
@@ -125,6 +125,6 @@ Come build with us.
 
 ---
 
-*ContextGenOS — Local by default, Open by design, Yours, permanently.*
+*MyContextPort — Local by default, Open by design, Yours, permanently.*
 
-*github.com/Kisbjornssund/ContextGenOS*
+*github.com/Kisbjornssund/MyContextPort*

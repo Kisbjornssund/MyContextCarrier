@@ -20,19 +20,19 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
 
           issue-message: |
-            Thank you for opening your first issue in ContextGenOS!
+            Thank you for opening your first issue in MyContextPort!
 
             A maintainer will review this shortly. In the meantime:
             - For troubleshooting, join **#getting-started** on [Discord](https://discord.gg/NvqtCBRr)
-            - For collector questions, see the [collector spec](https://docs.contextgenos.dev/collectors/writing-a-collector)
-            - For contribution guidance, read [CONTRIBUTING.md](https://github.com/Kisbjornssund/ContextGenOS/blob/main/CONTRIBUTING.md)
+            - For collector questions, see the [collector spec](https://docs.mycontextport.dev/collectors/writing-a-collector)
+            - For contribution guidance, read [CONTRIBUTING.md](https://github.com/Kisbjornssund/MyContextPort/blob/main/CONTRIBUTING.md)
 
           pr-message: |
-            Thank you for your first contribution to ContextGenOS!
+            Thank you for your first contribution to MyContextPort!
 
             A maintainer will review your pull request. Please make sure:
             - The PR template is filled out completely, including the Privacy Impact section
             - CI checks pass (you will see them appear below)
-            - For collector PRs: run `contextgenos dev test-collector` locally before requesting review
+            - For collector PRs: run `mycontextport dev test-collector` locally before requesting review
 
             Join **#contributing** on [Discord](https://discord.gg/NvqtCBRr) if you have questions while waiting.

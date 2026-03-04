@@ -1,0 +1,25 @@
+[package]
+name = "mycontextport-mcp"
+description = "MCP server — Model Context Protocol endpoint for AI tool integration"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[dependencies]
+tokio = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+axum = { workspace = true }
+tower = { workspace = true }
+tower-http = { workspace = true }
+tracing = { workspace = true }
+anyhow = { workspace = true }
+thiserror = { workspace = true }
+uuid = { workspace = true }
+chrono = { workspace = true }
+
+mycontextport-core = { path = "../mycontextport-core" }
+mycontextport-privacy = { path = "../mycontextport-privacy" }
+mycontextport-store = { path = "../mycontextport-store" }

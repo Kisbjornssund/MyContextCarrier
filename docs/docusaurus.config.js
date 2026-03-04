@@ -2,15 +2,15 @@
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'ContextGenOS',
+  title: 'MyContextPort',
   tagline: 'Your personal AI memory layer. Local. Private. Yours.',
   favicon: 'img/favicon.ico',
 
   url: 'https://kisbjornssund.github.io',
-  baseUrl: '/ContextGenOS/',
+  baseUrl: '/MyContextPort/',
 
   organizationName: 'Kisbjornssund',
-  projectName: 'ContextGenOS',
+  projectName: 'MyContextPort',
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -27,7 +27,7 @@ const config = {
       ({
         docs: {
           sidebarPath: './sidebars.js',
-          editUrl: 'https://github.com/Kisbjornssund/ContextGenOS/edit/main/docs/',
+          editUrl: 'https://github.com/Kisbjornssund/MyContextPort/edit/main/docs/',
           showLastUpdateTime: true,
           showLastUpdateAuthor: true,
         },
@@ -43,7 +43,7 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: 'ContextGenOS',
+        title: 'MyContextPort',
         items: [
           {
             type: 'docSidebar',
@@ -52,7 +52,7 @@ const config = {
             label: 'Docs',
           },
           {
-            href: 'https://github.com/Kisbjornssund/ContextGenOS',
+            href: 'https://github.com/Kisbjornssund/MyContextPort',
             label: 'GitHub',
             position: 'right',
           },
@@ -78,16 +78,16 @@ const config = {
             title: 'Community',
             items: [
               { label: 'Discord', href: 'https://discord.gg/NvqtCBRr' },
-              { label: 'GitHub Discussions', href: 'https://github.com/Kisbjornssund/ContextGenOS/discussions' },
-              { label: 'Twitter / X', href: 'https://x.com/contextgenosdev' },
+              { label: 'GitHub Discussions', href: 'https://github.com/Kisbjornssund/MyContextPort/discussions' },
+              { label: 'Twitter / X', href: 'https://x.com/mycontextportdev' },
             ],
           },
           {
             title: 'Project',
             items: [
-              { label: 'GitHub', href: 'https://github.com/Kisbjornssund/ContextGenOS' },
-              { label: 'Manifesto', href: 'https://github.com/Kisbjornssund/ContextGenOS/blob/main/MANIFESTO.md' },
-              { label: 'License (MIT)', href: 'https://github.com/Kisbjornssund/ContextGenOS/blob/main/LICENSE' },
+              { label: 'GitHub', href: 'https://github.com/Kisbjornssund/MyContextPort' },
+              { label: 'Manifesto', href: 'https://github.com/Kisbjornssund/MyContextPort/blob/main/MANIFESTO.md' },
+              { label: 'License (MIT)', href: 'https://github.com/Kisbjornssund/MyContextPort/blob/main/LICENSE' },
             ],
           },
         ],

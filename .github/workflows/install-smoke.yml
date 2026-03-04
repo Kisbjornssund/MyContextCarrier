@@ -8,9 +8,9 @@ on:
     paths:
       - "scripts/install.sh"
       - "scripts/install.ps1"
-      - "crates/contextgenos-cli/**"
-      - "crates/contextgenos-core/**"
-      - "crates/contextgenos-mcp/**"
+      - "crates/mycontextport-cli/**"
+      - "crates/mycontextport-core/**"
+      - "crates/mycontextport-mcp/**"
 
 jobs:
   smoke-macos:
@@ -26,17 +26,17 @@ jobs:
         uses: Swatinem/rust-cache@v2
 
       - name: Build CLI
-        run: cargo build --package contextgenos-cli --release
+        run: cargo build --package mycontextport-cli --release
 
       - name: Verify binary runs
         run: |
-          ./target/release/contextgenos --version
-          ./target/release/contextgenos --help
+          ./target/release/mycontextport --version
+          ./target/release/mycontextport --help
 
       - name: Verify init command works
         run: |
-          ./target/release/contextgenos init --non-interactive
-          ./target/release/contextgenos status
+          ./target/release/mycontextport init --non-interactive
+          ./target/release/mycontextport status
 
       # MCP server health check skipped — mcp serve is not yet implemented
 
@@ -53,17 +53,17 @@ jobs:
         uses: Swatinem/rust-cache@v2
 
       - name: Build CLI
-        run: cargo build --package contextgenos-cli --release
+        run: cargo build --package mycontextport-cli --release
 
       - name: Verify binary runs
         run: |
-          ./target/release/contextgenos --version
-          ./target/release/contextgenos --help
+          ./target/release/mycontextport --version
+          ./target/release/mycontextport --help
 
       - name: Verify init command works
         run: |
-          ./target/release/contextgenos init --non-interactive
-          ./target/release/contextgenos status
+          ./target/release/mycontextport init --non-interactive
+          ./target/release/mycontextport status
 
       # MCP server health check skipped — mcp serve is not yet implemented
 
@@ -80,16 +80,16 @@ jobs:
         uses: Swatinem/rust-cache@v2
 
       - name: Build CLI
-        run: cargo build --package contextgenos-cli --release
+        run: cargo build --package mycontextport-cli --release
 
       - name: Verify binary runs
         run: |
-          .\target\release\contextgenos.exe --version
-          .\target\release\contextgenos.exe --help
+          .\target\release\mycontextport.exe --version
+          .\target\release\mycontextport.exe --help
 
       - name: Verify init command works
         run: |
-          .\target\release\contextgenos.exe init --non-interactive
-          .\target\release\contextgenos.exe status
+          .\target\release\mycontextport.exe init --non-interactive
+          .\target\release\mycontextport.exe status
 
       # MCP server health check skipped — mcp serve is not yet implemented

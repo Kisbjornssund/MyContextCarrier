@@ -2,21 +2,21 @@
 
 "area: core":
   - changed-files:
-    - any-glob-to-any-file: "crates/contextgenos-core/**"
-    - any-glob-to-any-file: "crates/contextgenos-store/**"
-    - any-glob-to-any-file: "crates/contextgenos-graph/**"
+    - any-glob-to-any-file: "crates/mycontextport-core/**"
+    - any-glob-to-any-file: "crates/mycontextport-store/**"
+    - any-glob-to-any-file: "crates/mycontextport-graph/**"
 
 "area: mcp":
   - changed-files:
-    - any-glob-to-any-file: "crates/contextgenos-mcp/**"
+    - any-glob-to-any-file: "crates/mycontextport-mcp/**"
 
 "area: privacy-engine":
   - changed-files:
-    - any-glob-to-any-file: "crates/contextgenos-privacy/**"
+    - any-glob-to-any-file: "crates/mycontextport-privacy/**"
 
 "area: cli":
   - changed-files:
-    - any-glob-to-any-file: "crates/contextgenos-cli/**"
+    - any-glob-to-any-file: "crates/mycontextport-cli/**"
 
 "area: sdk":
   - changed-files:

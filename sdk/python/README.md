@@ -1,17 +1,17 @@
-# ContextGenOS Python SDK
+# MyContextPort Python SDK
 
-Build context collectors for any data source and plug them into the ContextGenOS daemon.
+Build context collectors for any data source and plug them into the MyContextPort daemon.
 
 ## Installation
 
 ```bash
-pip install contextgenos
+pip install mycontextport
 ```
 
 ## Quick Start
 
 ```python
-from contextgenos import BaseCollector, CollectorHealth, ContextItem
+from mycontextport import BaseCollector, CollectorHealth, ContextItem
 
 class MyCollector(BaseCollector):
     name = "my-source"
@@ -32,5 +32,5 @@ class MyCollector(BaseCollector):
 
 ## Links
 
-- [Documentation](https://docs.contextgenos.dev)
-- [GitHub](https://github.com/Kisbjornssund/ContextGenOS)
+- [Documentation](https://docs.mycontextport.dev)
+- [GitHub](https://github.com/Kisbjornssund/MyContextPort)

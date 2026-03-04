@@ -18,19 +18,19 @@ jobs:
         include:
           - target: x86_64-unknown-linux-gnu
             runner: ubuntu-latest
-            artifact: contextgenos-linux-x86_64
+            artifact: mycontextport-linux-x86_64
           - target: aarch64-unknown-linux-gnu
             runner: ubuntu-latest
-            artifact: contextgenos-linux-aarch64
+            artifact: mycontextport-linux-aarch64
           - target: x86_64-apple-darwin
             runner: macos-latest
-            artifact: contextgenos-macos-x86_64
+            artifact: mycontextport-macos-x86_64
           - target: aarch64-apple-darwin
             runner: macos-latest
-            artifact: contextgenos-macos-aarch64
+            artifact: mycontextport-macos-aarch64
           - target: x86_64-pc-windows-msvc
             runner: windows-latest
-            artifact: contextgenos-windows-x86_64.exe
+            artifact: mycontextport-windows-x86_64.exe
 
     steps:
       - uses: actions/checkout@v4
@@ -46,22 +46,22 @@ jobs:
 
       - name: Build (cross)
         if: matrix.target == 'aarch64-unknown-linux-gnu'
-        run: cross build --package contextgenos-cli --release --target ${{ matrix.target }}
+        run: cross build --package mycontextport-cli --release --target ${{ matrix.target }}
 
       - name: Build (native)
         if: matrix.target != 'aarch64-unknown-linux-gnu'
-        run: cargo build --package contextgenos-cli --release --target ${{ matrix.target }}
+        run: cargo build --package mycontextport-cli --release --target ${{ matrix.target }}
 
       - name: Rename artifact (Unix)
         if: matrix.runner != 'windows-latest'
         run: |
-          cp target/${{ matrix.target }}/release/contextgenos ${{ matrix.artifact }}
+          cp target/${{ matrix.target }}/release/mycontextport ${{ matrix.artifact }}
           sha256sum ${{ matrix.artifact }} > ${{ matrix.artifact }}.sha256
 
       - name: Rename artifact (Windows)
         if: matrix.runner == 'windows-latest'
         run: |
-          copy target\${{ matrix.target }}\release\contextgenos.exe ${{ matrix.artifact }}
+          copy target\${{ matrix.target }}\release\mycontextport.exe ${{ matrix.artifact }}
           (Get-FileHash ${{ matrix.artifact }}).Hash > ${{ matrix.artifact }}.sha256
 
       - name: Upload artifact
@@ -93,7 +93,7 @@ jobs:
       - name: Create release
         uses: softprops/action-gh-release@v2
         with:
-          name: ContextGenOS ${{ env.VERSION }}
+          name: MyContextPort ${{ env.VERSION }}
           draft: false
           prerelease: ${{ contains(github.ref, '-beta') || contains(github.ref, '-alpha') }}
           files: artifacts/**/*

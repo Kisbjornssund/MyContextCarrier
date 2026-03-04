@@ -39,7 +39,7 @@ jobs:
             collector_file="$dir/collector.py"
             if [ -f "$collector_file" ]; then
               echo "Validating: $collector_file"
-              python -m contextgenos.dev.validate "$collector_file"
+              python -m mycontextport.dev.validate "$collector_file"
             fi
           done
 

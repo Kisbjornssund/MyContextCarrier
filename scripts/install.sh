@@ -1,10 +1,10 @@
 #!/usr/bin/env sh
-# ContextGenOS installer
-# Usage: curl -fsSL https://contextgenos.dev/install.sh | sh
+# MyContextPort installer
+# Usage: curl -fsSL https://mycontextport.dev/install.sh | sh
 set -e
 
-REPO="Kisbjornssund/ContextGenOS"
-BINARY="contextgenos"
+REPO="Kisbjornssund/MyContextPort"
+BINARY="mycontextport"
 INSTALL_DIR="/usr/local/bin"
 
 # ── Helpers ──────────────────────────────────────────────────────────────────
@@ -22,15 +22,15 @@ detect_target() {
     case "$OS" in
         Linux)
             case "$ARCH" in
-                x86_64)         echo "contextgenos-linux-x86_64" ;;
-                aarch64|arm64)  echo "contextgenos-linux-aarch64" ;;
+                x86_64)         echo "mycontextport-linux-x86_64" ;;
+                aarch64|arm64)  echo "mycontextport-linux-aarch64" ;;
                 *)              die "Unsupported Linux architecture: $ARCH" ;;
             esac
             ;;
         Darwin)
             case "$ARCH" in
-                x86_64)         echo "contextgenos-macos-x86_64" ;;
-                arm64|aarch64)  echo "contextgenos-macos-aarch64" ;;
+                x86_64)         echo "mycontextport-macos-x86_64" ;;
+                arm64|aarch64)  echo "mycontextport-macos-aarch64" ;;
                 *)              die "Unsupported macOS architecture: $ARCH" ;;
             esac
             ;;
@@ -61,7 +61,7 @@ download() {
     BASE_URL="https://github.com/$REPO/releases/download/$VERSION"
     TMP_DIR=$(mktemp -d)
 
-    say "Downloading ContextGenOS $VERSION ($ARTIFACT)..."
+    say "Downloading MyContextPort $VERSION ($ARTIFACT)..."
     curl -fsSL "$BASE_URL/$ARTIFACT"        -o "$TMP_DIR/$BINARY"
     curl -fsSL "$BASE_URL/$ARTIFACT.sha256" -o "$TMP_DIR/$ARTIFACT.sha256"
 
@@ -111,17 +111,17 @@ main() {
     TMP_DIR=$(download "$ARTIFACT" "$VERSION")
     install_binary "$TMP_DIR"
 
-    say "ContextGenOS $VERSION installed to $INSTALL_DIR/$BINARY"
+    say "MyContextPort $VERSION installed to $INSTALL_DIR/$BINARY"
     "$INSTALL_DIR/$BINARY" --version
 
     cat <<EOF
 
 Next steps:
-  contextgenos init       Set up your local context store
-  contextgenos --help     See all commands
-  contextgenos mcp serve  Start the MCP server for AI tool integration
+  mycontextport init       Set up your local context store
+  mycontextport --help     See all commands
+  mycontextport mcp serve  Start the MCP server for AI tool integration
 
-Documentation: https://docs.contextgenos.dev
+Documentation: https://docs.mycontextport.dev
 EOF
 }
 
