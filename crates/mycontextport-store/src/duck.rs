@@ -1,6 +1,6 @@
 //! DuckDB-backed structured context store.
 
-use crate::{schema, types::Sensitivity, CollectionRun, ContextItem, GraphEdge, GraphNode, InjectionLogEntry, Result, Thread};
+use crate::{schema, types::Sensitivity, CollectionRun, ContextItem, GraphNode, InjectionLogEntry, Result, Thread};
 use duckdb::{params, Connection};
 use std::path::Path;
 use std::str::FromStr;

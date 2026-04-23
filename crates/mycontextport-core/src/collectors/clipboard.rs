@@ -5,7 +5,6 @@
 
 use crate::collector::{Collector, ContextItem, Sensitivity};
 use async_trait::async_trait;
-use uuid::Uuid;
 
 pub struct ClipboardCollector;
 
@@ -74,7 +73,7 @@ impl Collector for ClipboardCollector {
 
         // Deduplicate by content: use a deterministic ID based on content hash
         // so re-collecting the same clipboard entry is a no-op.
-        let id = format!("clipboard-{:x}", md5_hex(&text));
+        let id = format!("clipboard-{}", md5_hex(&text));
         let now = chrono::Utc::now().timestamp();
 
         Ok(vec![ContextItem {

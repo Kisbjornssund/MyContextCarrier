@@ -70,6 +70,14 @@ impl PrivacyEngine {
         })
     }
 
+    pub fn rules(&self) -> &[PrivacyRule] {
+        &self.rules
+    }
+
+    pub fn unknown_client_policy(&self) -> &UnknownClientPolicy {
+        &self.unknown_client_policy
+    }
+
     /// Evaluate rules for a context item against a target model.
     ///
     /// Rules are evaluated in order; the first matching rule wins.

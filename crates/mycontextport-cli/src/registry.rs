@@ -5,6 +5,7 @@ use std::collections::HashMap;
 use std::path::{Path, PathBuf};
 
 /// Metadata for a built-in Python collector.
+#[allow(dead_code)]
 pub struct CollectorSpec {
     pub name: &'static str,
     pub description: &'static str,
