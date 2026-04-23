@@ -1,4 +1,4 @@
-# MyContextPort Privacy & Security Architecture
+# MyContextCarrier Privacy & Security Architecture
 
 ## *Why Local-First Is Not a Feature: It's a Fundamentally Different Model*
 
@@ -6,7 +6,7 @@
 
 ## The Problem With Every Existing Solution
 
-Before explaining what MyContextPort does, it's worth being precise about what currently exists and exactly where each solution fails, because the failures are not minor inconveniences. They are structural, and they are by design.
+Before explaining what MyContextCarrier does, it's worth being precise about what currently exists and exactly where each solution fails, because the failures are not minor inconveniences. They are structural, and they are by design.
 
 ### Cloud Memory Services (Mem.ai, Notion AI, etc.)
 
@@ -46,43 +46,43 @@ This category is closer to the right idea and deserves more credit, but it falls
 
 ---
 
-## The MyContextPort Model: Architecture as Privacy
+## The MyContextCarrier Model: Architecture as Privacy
 
-MyContextPort does not treat privacy as a settings menu or a compliance checkbox. Privacy in MyContextPort is an architectural property, meaning it is enforced by how the system is built, not by how the system is configured.
+MyContextCarrier does not treat privacy as a settings menu or a compliance checkbox. Privacy in MyContextCarrier is an architectural property, meaning it is enforced by how the system is built, not by how the system is configured.
 
 This distinction matters enormously. A system that protects your data through settings can have those settings changed, by you accidentally, by a software update, by a policy change, by a new owner after an acquisition. A system that protects your data through architecture cannot be misconfigured into exposing it, because exposure requires deliberate, visible action.
 
 ### The Local-First Guarantee
 
-MyContextPort runs entirely on your machine. There is no MyContextPort server. There is no MyContextPort cloud. There is no company database that aggregates user context. The software you install is the entirety of the system, and it operates exclusively on your hardware.
+MyContextCarrier runs entirely on your machine. There is no MyContextCarrier server. There is no MyContextCarrier cloud. There is no company database that aggregates user context. The software you install is the entirety of the system, and it operates exclusively on your hardware.
 
 What this means in practice:
 
-**No network requests at runtime.** The MyContextPort daemon, once installed, does not make outbound network connections during normal operation. It reads from your local data sources, writes to your local store, and serves context to local applications. You can verify this with any network monitoring tool. We encourage you to do so.
+**No network requests at runtime.** The MyContextCarrier daemon, once installed, does not make outbound network connections during normal operation. It reads from your local data sources, writes to your local store, and serves context to local applications. You can verify this with any network monitoring tool. We encourage you to do so.
 
-**No telemetry.** MyContextPort collects no usage data, no error reports, no "anonymous analytics." We know that most software says this. The difference here is that you can verify it — the codebase is open, the binary is reproducible, and the network behavior is auditable. Trust should be verifiable, not demanded.
+**No telemetry.** MyContextCarrier collects no usage data, no error reports, no "anonymous analytics." We know that most software says this. The difference here is that you can verify it — the codebase is open, the binary is reproducible, and the network behavior is auditable. Trust should be verifiable, not demanded.
 
-**No authentication to a remote service.** You do not create a MyContextPort account. You do not log in. There is no server that could be breached and expose your credentials or your data, because there is no server.
+**No authentication to a remote service.** You do not create a MyContextCarrier account. You do not log in. There is no server that could be breached and expose your credentials or your data, because there is no server.
 
-**Your data has one location.** Your context store lives at a path on your filesystem that you can inspect, back up, encrypt with your own tools, or delete entirely. At any moment, you can `rm -rf ~/.mycontextport` and every piece of data MyContextPort holds is gone. No deletion requests. No "we'll delete it within 30 days." Gone, immediately, because it was always yours.
+**Your data has one location.** Your context store lives at a path on your filesystem that you can inspect, back up, encrypt with your own tools, or delete entirely. At any moment, you can `rm -rf ~/.mycontextport` and every piece of data MyContextCarrier holds is gone. No deletion requests. No "we'll delete it within 30 days." Gone, immediately, because it was always yours.
 
 ### Encryption Architecture
 
-MyContextPort implements encryption in a fundamentally different way than cloud services.
+MyContextCarrier implements encryption in a fundamentally different way than cloud services.
 
-**You hold the keys.** The local context store is encrypted using keys derived from your device's secure enclave (on supported hardware: Apple Silicon, TPM on Windows/Linux) or a user-provided passphrase. MyContextPort never transmits your keys. MyContextPort never generates keys on a remote server. The mathematical relationship between your keys and your data means that no one who does not possess your keys — including the authors of MyContextPort — can read your context store.
+**You hold the keys.** The local context store is encrypted using keys derived from your device's secure enclave (on supported hardware: Apple Silicon, TPM on Windows/Linux) or a user-provided passphrase. MyContextCarrier never transmits your keys. MyContextCarrier never generates keys on a remote server. The mathematical relationship between your keys and your data means that no one who does not possess your keys — including the authors of MyContextCarrier — can read your context store.
 
-**Key derivation.** On first initialization, MyContextPort derives an encryption key using your device's secure hardware where available. On Apple Silicon, this uses the Secure Enclave. On Linux with TPM, this uses the TPM chip. On systems without secure hardware, a passphrase-derived key (Argon2id) is used. The derived key never leaves your device.
+**Key derivation.** On first initialization, MyContextCarrier derives an encryption key using your device's secure hardware where available. On Apple Silicon, this uses the Secure Enclave. On Linux with TPM, this uses the TPM chip. On systems without secure hardware, a passphrase-derived key (Argon2id) is used. The derived key never leaves your device.
 
-**Encrypted at rest, controlled by you.** The DuckDB structured store and the Qdrant vector index are both encrypted at rest. The encryption is performed by MyContextPort before data is written to disk. Unlike cloud "encrypted at rest," there is no server-side decryption layer between your data and any third party.
+**Encrypted at rest, controlled by you.** The DuckDB structured store and the Qdrant vector index are both encrypted at rest. The encryption is performed by MyContextCarrier before data is written to disk. Unlike cloud "encrypted at rest," there is no server-side decryption layer between your data and any third party.
 
-**Optional additional encryption.** Users who require higher assurance can configure MyContextPort to encrypt the entire data directory with a separate passphrase required at daemon startup. This means the context store is unusable even if someone gains physical access to your machine while it is powered off.
+**Optional additional encryption.** Users who require higher assurance can configure MyContextCarrier to encrypt the entire data directory with a separate passphrase required at daemon startup. This means the context store is unusable even if someone gains physical access to your machine while it is powered off.
 
 ### The Privacy Rules Engine
 
-Not all context is equally sensitive, and not all context is appropriate to share with every AI tool. MyContextPort includes a privacy rules engine that gives you fine-grained control over what context is captured and what context is injected.
+Not all context is equally sensitive, and not all context is appropriate to share with every AI tool. MyContextCarrier includes a privacy rules engine that gives you fine-grained control over what context is captured and what context is injected.
 
-**Capture rules:** Control what MyContextPort collects from each source:
+**Capture rules:** Control what MyContextCarrier collects from each source:
 ```yaml
 collectors:
   browser:
@@ -120,11 +120,11 @@ injection:
     - relationship_notes
 ```
 
-**Context tagging.** Every piece of context captured by MyContextPort is automatically tagged with a sensitivity classification (work, personal, health, financial, relationship) based on its source and content. These tags drive injection decisions. You can review and override tags at any time through the inspection UI.
+**Context tagging.** Every piece of context captured by MyContextCarrier is automatically tagged with a sensitivity classification (work, personal, health, financial, relationship) based on its source and content. These tags drive injection decisions. You can review and override tags at any time through the inspection UI.
 
 ### The Inspection Guarantee
 
-MyContextPort maintains a complete, human-readable log of every context injection event. Before any piece of your context is provided to any AI tool, a log entry is created containing:
+MyContextCarrier maintains a complete, human-readable log of every context injection event. Before any piece of your context is provided to any AI tool, a log entry is created containing:
 
 - Timestamp
 - Which AI tool requested context
@@ -133,16 +133,16 @@ MyContextPort maintains a complete, human-readable log of every context injectio
 - Which context items were actually injected (after privacy rules were applied)
 - Which context items were blocked by privacy rules
 
-This log is accessible through the MyContextPort UI and queryable via CLI:
+This log is accessible through the MyContextCarrier UI and queryable via CLI:
 
 ```bash
-# What did MyContextPort inject into my Claude conversation this morning?
+# What did MyContextCarrier inject into my Claude conversation this morning?
 mycontextport log inspect --since "09:00" --model claude
 
 # Has anything from my health data ever been injected?
 mycontextport log search --sensitivity health
 
-# What does MyContextPort know that matched my last query?
+# What does MyContextCarrier know that matched my last query?
 mycontextport log last --verbose
 ```
 
@@ -150,41 +150,41 @@ No existing cloud memory service provides this level of injection transparency. 
 
 ---
 
-## Threat Model: What MyContextPort Protects Against
+## Threat Model: What MyContextCarrier Protects Against
 
-Being precise about what MyContextPort protects against, and what it does not, is more honest and more useful than vague privacy claims.
+Being precise about what MyContextCarrier protects against, and what it does not, is more honest and more useful than vague privacy claims.
 
 ### Protected Against
 
-**Corporate data harvesting.** MyContextPort has no server to harvest to. There is no mechanism by which Anthropic, any company, or MyContextPort contributors can access your context data.
+**Corporate data harvesting.** MyContextCarrier has no server to harvest to. There is no mechanism by which Anthropic, any company, or MyContextCarrier contributors can access your context data.
 
 **Training data extraction.** Your context cannot be used to train any AI model without your explicit action. It is not transmitted. It is not accessible. It cannot be harvested.
 
-**Data broker resale.** Cloud AI memory services operate in a legal environment where user data can be sold, licensed, or transferred in acquisition scenarios. MyContextPort data is on your machine and is not subject to any company's data practices.
+**Data broker resale.** Cloud AI memory services operate in a legal environment where user data can be sold, licensed, or transferred in acquisition scenarios. MyContextCarrier data is on your machine and is not subject to any company's data practices.
 
-**Breach of a cloud provider.** If MyContextPort had a server and that server was breached, there would be no user context data to expose. The attack surface that cloud providers represent — a single database containing the accumulated context of millions of users — does not exist with MyContextPort.
+**Breach of a cloud provider.** If MyContextCarrier had a server and that server was breached, there would be no user context data to expose. The attack surface that cloud providers represent — a single database containing the accumulated context of millions of users — does not exist with MyContextCarrier.
 
-**Legal demands served on a third party.** A subpoena, National Security Letter, or court order served on a cloud provider can compel disclosure of your data without your knowledge. With MyContextPort, there is no third party holding your data. A legal demand would have to be served on you directly, which means you are notified and have the ability to respond.
+**Legal demands served on a third party.** A subpoena, National Security Letter, or court order served on a cloud provider can compel disclosure of your data without your knowledge. With MyContextCarrier, there is no third party holding your data. A legal demand would have to be served on you directly, which means you are notified and have the ability to respond.
 
-**Passive context leakage across models.** With cloud memory, context accumulated from your interactions with one model may inform the training of another, or be accessible across product lines within a company's ecosystem. With MyContextPort, the same context store serves multiple models, but the data never leaves your machine: you are choosing which models receive context from a local system, not allowing a corporation to connect your data across their products without your awareness.
+**Passive context leakage across models.** With cloud memory, context accumulated from your interactions with one model may inform the training of another, or be accessible across product lines within a company's ecosystem. With MyContextCarrier, the same context store serves multiple models, but the data never leaves your machine: you are choosing which models receive context from a local system, not allowing a corporation to connect your data across their products without your awareness.
 
-**Account compromise.** There is no MyContextPort account to compromise. Your context cannot be accessed by someone who gains access to a MyContextPort account because no such account exists.
+**Account compromise.** There is no MyContextCarrier account to compromise. Your context cannot be accessed by someone who gains access to a MyContextCarrier account because no such account exists.
 
 ### Not Protected Against
 
-**Malware on your machine.** If an attacker has code execution on your device, they can potentially access your context store. MyContextPort uses encryption to raise the cost of this attack but cannot fully prevent it if your device is compromised. Device security is a prerequisite for MyContextPort security.
+**Malware on your machine.** If an attacker has code execution on your device, they can potentially access your context store. MyContextCarrier uses encryption to raise the cost of this attack but cannot fully prevent it if your device is compromised. Device security is a prerequisite for MyContextCarrier security.
 
-**Physical device access.** If someone has physical access to your powered-on device and you have not locked your session, they can access the running MyContextPort daemon. Standard device security practices apply.
+**Physical device access.** If someone has physical access to your powered-on device and you have not locked your session, they can access the running MyContextCarrier daemon. Standard device security practices apply.
 
-**The AI models themselves.** MyContextPort injects your context into prompts sent to AI models — including cloud models. If you choose to inject context into a cloud model like GPT-4, that context leaves your machine as part of the prompt. MyContextPort's privacy rules engine allows you to restrict what is injected into cloud versus local models, but the act of injection itself sends data to the model provider. MyContextPort is transparent about this. The injection log shows exactly what was sent to which model.
+**The AI models themselves.** MyContextCarrier injects your context into prompts sent to AI models — including cloud models. If you choose to inject context into a cloud model like GPT-4, that context leaves your machine as part of the prompt. MyContextCarrier's privacy rules engine allows you to restrict what is injected into cloud versus local models, but the act of injection itself sends data to the model provider. MyContextCarrier is transparent about this. The injection log shows exactly what was sent to which model.
 
-**Legal demands served directly on you.** MyContextPort protects your data from third-party legal demands. It does not protect you from legal demands directed at you personally.
+**Legal demands served directly on you.** MyContextCarrier protects your data from third-party legal demands. It does not protect you from legal demands directed at you personally.
 
 ---
 
 ## Comparison Table
 
-| Property | MyContextPort | Cloud Memory (Mem.ai etc.) | App Memory (ChatGPT etc.) | Notes + AI Plugins |
+| Property | MyContextCarrier | Cloud Memory (Mem.ai etc.) | App Memory (ChatGPT etc.) | Notes + AI Plugins |
 |---|---|---|---|---|
 | Data location | Your machine | Provider servers | Provider servers | Your machine (partial) |
 | Encryption key holder | You | Provider | Provider | You (if configured) |
@@ -208,9 +208,9 @@ It is worth stating explicitly why open source is a security property and not me
 
 **Closed source systems require trust that cannot be verified.** When a company says "we don't sell your data" or "we don't use your data for training," you are trusting a statement by a party with a financial interest in your continued use of their product. The statement may be true. It may not be. You have no way to verify it.
 
-**Open source systems allow trust to be verified.** Every claim MyContextPort makes about its behavior — no telemetry, no network requests, local-only data — can be verified by reading the code, building the binary yourself, and monitoring the system's network behavior. You do not have to trust us. You can verify us. This is a categorically different security posture.
+**Open source systems allow trust to be verified.** Every claim MyContextCarrier makes about its behavior — no telemetry, no network requests, local-only data — can be verified by reading the code, building the binary yourself, and monitoring the system's network behavior. You do not have to trust us. You can verify us. This is a categorically different security posture.
 
-**Reproducible builds.** MyContextPort is committed to reproducible builds — a property that means anyone who builds the software from source will produce a binary that is cryptographically identical to the binary we distribute. This eliminates the supply chain attack vector where a trusted open source codebase is compiled into an untrustworthy binary.
+**Reproducible builds.** MyContextCarrier is committed to reproducible builds — a property that means anyone who builds the software from source will produce a binary that is cryptographically identical to the binary we distribute. This eliminates the supply chain attack vector where a trusted open source codebase is compiled into an untrustworthy binary.
 
 **The audit surface is public.** Security researchers, privacy advocates, and concerned users can review the codebase without signing NDAs or engaging in responsible disclosure theater. Vulnerabilities found can be reported publicly. Fixes can be reviewed publicly. The security posture of the system is not a secret.
 
@@ -220,15 +220,15 @@ It is worth stating explicitly why open source is a security property and not me
 
 Privacy regulations are tightening globally. GDPR in Europe, CCPA in California, the EU AI Act, and a growing wave of national data protection laws are all moving in the direction of stronger user rights over personal data. Cloud AI memory services are navigating a regulatory environment that may require significant changes to how they collect, store, and use user context data.
 
-MyContextPort is structurally compliant with the strongest possible interpretation of these regulations — not because we have designed for compliance, but because the architecture that best serves users also happens to be the architecture that regulators are moving toward requiring. No personal data leaves the user's device. No processing occurs on company infrastructure. No retention policies are needed because no retention occurs outside the user's control.
+MyContextCarrier is structurally compliant with the strongest possible interpretation of these regulations — not because we have designed for compliance, but because the architecture that best serves users also happens to be the architecture that regulators are moving toward requiring. No personal data leaves the user's device. No processing occurs on company infrastructure. No retention policies are needed because no retention occurs outside the user's control.
 
-As regulation tightens, cloud AI memory services will need to build toward what MyContextPort already is. MyContextPort starts there.
+As regulation tightens, cloud AI memory services will need to build toward what MyContextCarrier already is. MyContextCarrier starts there.
 
 ---
 
 ## Summary
 
-MyContextPort is not more private than cloud alternatives because it has better privacy settings or stronger legal policies. It is more private because the attack surface that enables privacy violations: a server holding your data, a company holding your encryption keys, a training pipeline that can consume your context, does not exist.
+MyContextCarrier is not more private than cloud alternatives because it has better privacy settings or stronger legal policies. It is more private because the attack surface that enables privacy violations: a server holding your data, a company holding your encryption keys, a training pipeline that can consume your context, does not exist.
 
 The privacy guarantee is architectural. Architecture doesn't lie, change its terms of service, get acquired, or receive National Security Letters.
 
@@ -236,5 +236,5 @@ Your context is on your machine. Your keys are in your hands. Your AI tools get 
 
 ---
 
-*MyContextPort — github.com/mycontextport/mycontextport*
+*MyContextCarrier — github.com/mycontextport/mycontextport*
 *Licensed under MIT*

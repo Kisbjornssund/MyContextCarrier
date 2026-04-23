@@ -1,6 +1,6 @@
-# Contributing to MyContextPort
+# Contributing to MyContextCarrier
 
-MyContextPort is built by the people who use it. The plugin architecture is designed so that a meaningful contribution is possible in an afternoon. Every data source you can imagine is a collector waiting to be built.
+MyContextCarrier is built by the people who use it. The plugin architecture is designed so that a meaningful contribution is possible in an afternoon. Every data source you can imagine is a collector waiting to be built.
 
 ---
 
@@ -15,7 +15,7 @@ MyContextPort is built by the people who use it. The plugin architecture is desi
 | [Core Daemon](#core-daemon) | Rust performance/features | Rust, async systems | Days |
 | [Documentation](#documentation) | Guides, references | Writing ability | 1–3 hours |
 
-**Not sure where to start?** Check [open issues labeled `good first issue`](https://github.com/Kisbjornssund/MyContextPort/issues?q=is%3Aopen+label%3A%22good+first+issue%22).
+**Not sure where to start?** Check [open issues labeled `good first issue`](https://github.com/Kisbjornssund/MyContextCarrier/issues?q=is%3Aopen+label%3A%22good+first+issue%22).
 
 **Have a question?** Join `#contributing` on [Discord](https://discord.gg/NvqtCBRr) before opening an issue.
 
@@ -30,7 +30,7 @@ Open a PR directly. No prior discussion needed. Include reproduction steps and y
 These are the most welcome contributions. For new collectors, no prior discussion is needed, just follow the spec below and open a PR.
 
 ### New core features or architecture changes
-Start a [GitHub Discussion](https://github.com/Kisbjornssund/MyContextPort/discussions) or ask in `#core-dev` on Discord before writing code. This prevents wasted effort on approaches that won't be merged.
+Start a [GitHub Discussion](https://github.com/Kisbjornssund/MyContextCarrier/discussions) or ask in `#core-dev` on Discord before writing code. This prevents wasted effort on approaches that won't be merged.
 
 ### Questions
 Use Discord `#getting-started` or `#collectors` before opening a GitHub issue.
@@ -45,14 +45,12 @@ Collectors are the primary contributor pathway. Each collector is a Python class
 
 Generate a collector scaffold:
 ```bash
-mycontextport dev new-collector --name my-tool --platform macos,linux
+mycontextport dev new-collector my-tool
 ```
 
 This creates:
 - `collectors/my-tool/collector.py`: The Python class with all interface methods stubbed
-- `collectors/my-tool/tests/test_collector.py`: Test file with required test cases
-- `collectors/my-tool/README.md`: Documentation template
-- `collectors/my-tool/config_schema.py`: Pydantic schema for collector config
+- `collectors/my-tool/__main__.py`: Subprocess entrypoint used by the Rust scheduler
 
 Implement the data extraction logic, run the tests, submit a PR.
 
@@ -88,34 +86,20 @@ class MyToolCollector(BaseCollector):
             message="My Tool database found at expected path"
         )
 
-    async def stream(self) -> AsyncIterator[ContextItem]:
-        """Optional: stream items as they are collected (for large sources)."""
-        for item in await self.collect():
-            yield item
 ```
 
 ### Collector requirements
 
 - Must implement `collect()` and `health_check()` completely
 - Must not make network requests during `collect()` or tests
-- Must include at least 5 unit tests
+- Must include unit tests covering the main collection path
 - Must be tested on the platforms declared in `platforms`
-- Must include a `README.md` entry in the collector directory
-- Must pass `mycontextport dev test-collector --collector ./collector.py`
-
-### Validate before submitting
-
-```bash
-mycontextport dev test-collector --collector ./collectors/my-tool/collector.py
-```
-
-This runs: interface completeness check, schema validation, network call detection, health_check verification.
 
 ---
 
 ## AI Integrations
 
-Integrations connect MyContextPort's MCP server output to specific AI tools.
+Integrations connect MyContextCarrier's MCP server output to specific AI tools.
 
 See `docs/docs/contributing/ai-integrations.md` for the integration spec.
 
@@ -131,7 +115,6 @@ The Rust core handles storage, indexing, the privacy rules engine, and the MCP s
 
 **Setup:**
 ```bash
-./scripts/dev-setup.sh
 cargo build --workspace
 cargo test --workspace
 ```
@@ -140,7 +123,6 @@ cargo test --workspace
 ```bash
 cargo clippy -- -D warnings
 cargo fmt --check
-cargo audit
 ```
 
 Core changes require maintainer review. Open a GitHub Discussion before starting work on anything architectural.
@@ -165,11 +147,11 @@ npm start
 ## Development Environment
 
 ```bash
-# One-command setup
-./scripts/dev-setup.sh
+# Install Rust (if not already installed)
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
-# This installs: Rust toolchain, Python 3.10+, uv, Node.js (for docs)
-# and runs: cargo build --workspace
+# Build everything
+cargo build --workspace
 ```
 
 Requirements:
@@ -183,7 +165,7 @@ Requirements:
 
 1. Fork the repository and create a branch: `git checkout -b feat/my-feature` or `git checkout -b fix/issue-123`
 2. Make your changes and write or update tests
-3. Run `./scripts/check.sh` (runs cargo test, clippy, fmt, and Python tests)
+3. Run `cargo test --workspace && cargo clippy -- -D warnings && cargo fmt --check`
 4. Fill out the pull request template completely: the Privacy Impact and Security Impact sections are required
 5. Link any related issues with `Closes #123`
 
@@ -206,10 +188,10 @@ Undisclosed AI-generated code that introduces bugs or security issues may result
 
 Maintainers are added deliberately. If you have been an active contributor and want to take on more responsibility:
 
-Email `contributing@mycontextport.dev` with:
+Open a GitHub Discussion or reach out on Discord with:
 - Your GitHub and Discord handles
 - A description of your open source background
-- Which area of MyContextPort you want to maintain (collectors, core, SDK, docs)
+- Which area of MyContextCarrier you want to maintain (collectors, core, SDK, docs)
 - A realistic estimate of your weekly time commitment
 
 The team reviews applications carefully and responds within 2 weeks.
