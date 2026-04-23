@@ -1,6 +1,6 @@
 # MyContextCarrier demo
 # Prerequisites: cargo build --release has been run
-# Run with: vhs docs/assets/demo.tape
+# Run from repo root: vhs docs/assets/demo.tape
 
 Output docs/assets/demo.gif
 
@@ -12,16 +12,17 @@ Set Theme "Dracula"
 Set Padding 20
 Set TypingSpeed 55ms
 
+# Start already inside the repo — no cd needed, hides personal folder names
 Hide
-Type "cd ~/NewStelthion/MyContextPort"
+Type "export PS1='mycontextcarrier $ '"
 Enter
 Sleep 200ms
 Show
 
 # ── 1. Show what the CLI can do ──────────────────────────────────────────────
-Type "./target/release/mycontextport --help"
+Type "cargo run --release --bin mycontextport -- --help 2>/dev/null || ./target/release/mycontextport --help"
 Enter
-Sleep 2500ms
+Sleep 3000ms
 
 # ── 2. List built-in collectors ──────────────────────────────────────────────
 Type "./target/release/mycontextport collector list"
@@ -41,10 +42,10 @@ Type "cat collectors/my-notes/collector.py"
 Enter
 Sleep 3000ms
 
-# ── 5. Start MCP server — this is what Claude Desktop connects to ────────────
-Type "# Add to claude_desktop_config.json and Claude knows your context"
+# ── 5. Start MCP server ───────────────────────────────────────────────────────
+Type "# Claude Desktop connects to this"
 Enter
-Sleep 1000ms
+Sleep 800ms
 Type "./target/release/mycontextport mcp serve"
 Enter
 Sleep 2000ms
