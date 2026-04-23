@@ -7,6 +7,7 @@ pub mod collector;
 pub mod collectors;
 pub mod daemon;
 pub mod error;
+pub mod scheduler;
 
 pub use error::Error;
 

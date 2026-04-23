@@ -23,4 +23,10 @@ pub trait Collector: Send + Sync {
     ///
     /// Must NOT make network requests — local files and sockets only.
     async fn collect(&self) -> anyhow::Result<Vec<ContextItem>>;
+
+    /// Return the health status of this collector on the current system.
+    /// Default implementation always reports healthy.
+    async fn health_check(&self) -> CollectorHealth {
+        CollectorHealth { healthy: true, message: format!("{} is ready", self.name()) }
+    }
 }
