@@ -10,6 +10,6 @@ pub mod types;
 
 pub use duck::ContextStore;
 pub use error::Error;
-pub use types::{ContextItem, Sensitivity};
+pub use types::{CollectionRun, ContextItem, GraphEdge, GraphNode, InjectionLogEntry, Sensitivity, Thread, TraceStep};
 
 pub type Result<T> = std::result::Result<T, Error>;
