@@ -10,7 +10,7 @@
 
 **Do not open a public GitHub issue for security vulnerabilities.**
 
-Report vulnerabilities by email to **security@mycontextport.dev**. Include:
+Report vulnerabilities by opening a private security advisory on GitHub. Include:
 
 - A descriptive title and severity assessment (low / medium / high / critical)
 - The component affected (core daemon, MCP server, privacy rules engine, a specific collector, SDK)

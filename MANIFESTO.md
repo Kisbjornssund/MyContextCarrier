@@ -99,7 +99,7 @@ We are building this in public, with a license that keeps it free forever, with 
 
 ### Our Commitments
 
-**To users:** Your context will never leave your machine without your explicit command. You will always be able to see exactly what MyContextPort knows about you and exactly what context was injected into any conversation. You will be able to delete everything. You will be able to export everything. These are not features we might add. They are promises that are encoded in the architecture.
+**To users:** Your context will never leave your machine without your explicit command. You will always be able to see exactly what MyContextPort knows about you and exactly what context was injected into any conversation. You will be able to delete everything. You will be able to export everything. Encryption at rest is on the roadmap and will be implemented before v1.0 — in the current pre-alpha, the local store is unencrypted and should only be used on a machine you control. These are not features we might add. They are promises that are encoded in the architecture.
 
 **To contributors:** The plugin system is designed so that meaningful contribution is possible in an afternoon. The codebase will be documented as if documentation is as important as the code itself, because it is. Decisions about architecture and direction will be made in public. No contributor will be surprised by a pivot that serves a business model they didn't sign up for, because there is no business model. There is only the software.
 
