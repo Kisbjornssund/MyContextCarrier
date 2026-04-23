@@ -4,7 +4,7 @@
 
 ### The Universal, Portable, Private and Persistent AI Memory You Own.
 
-MyContextCarrier started as a personal project to address the annoyance of porting context between different AI tools — including agentic workflows — and having to re-explain everything, every time. Context windows are limited and exclusive: you can't carry them with you wherever you go.
+MyContextCarrier started as a personal project to address the annoyance of porting context between different AI tools (including agentic workflows) and having to re-explain everything, every time. Context windows are limited and exclusive: you can't carry them with you wherever you go.
 
 It grew into a privacy-gated MCP server that collects personal context locally, enforces user-defined sensitivity rules per model, and injects the right context into any MCP-compatible AI client.
 
