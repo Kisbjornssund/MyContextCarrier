@@ -1,0 +1,49 @@
+# MyContextPort collectors configuration
+# Copy to ~/.mycontextport/collectors.toml and adjust paths.
+
+[[python]]
+name = "calendar"
+script = "~/.mycontextport/collectors/calendar/__main__.py"
+interval_secs = 1800   # 30 minutes
+
+[python.config]
+days_ahead = 14
+days_behind = 7
+
+[[python]]
+name = "browser"
+script = "~/.mycontextport/collectors/browser/__main__.py"
+interval_secs = 900    # 15 minutes
+
+[python.config]
+max_items = 200
+since_hours = 168
+
+[[python]]
+name = "notes"
+script = "~/.mycontextport/collectors/notes/__main__.py"
+interval_secs = 3600   # 1 hour
+
+[python.config]
+since_days = 30
+max_items = 100
+
+[[python]]
+name = "email"
+script = "~/.mycontextport/collectors/email/__main__.py"
+interval_secs = 1800   # 30 minutes
+
+[python.config]
+since_days = 30
+max_items = 100
+# work_domains = ["yourcompany.com"]
+# include_body = false
+
+[[python]]
+name = "vscode"
+script = "~/.mycontextport/collectors/vscode/__main__.py"
+interval_secs = 900    # 15 minutes
+
+[python.config]
+since_days = 14
+max_items = 50

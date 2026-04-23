@@ -21,6 +21,7 @@ Quick start:
 """
 
 from mycontextport.collector import BaseCollector
+from mycontextport.runner import run_collector
 from mycontextport.types import CollectorHealth, ContextItem, Sensitivity
 
 __version__ = "0.1.0"
@@ -29,4 +30,5 @@ __all__ = [
     "ContextItem",
     "CollectorHealth",
     "Sensitivity",
+    "run_collector",
 ]
