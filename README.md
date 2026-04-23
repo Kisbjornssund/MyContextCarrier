@@ -21,11 +21,7 @@ It grew into a privacy-gated MCP server that collects personal context locally, 
 
 ---
 
-<!-- DEMO GIF PLACEHOLDER -->
-<!-- Replace with: terminal recording showing `mycontextport mcp serve` running, -->
-<!-- then an AI tool demonstrating awareness of context it was never told.     -->
-<!-- This is the single most important asset in this README.                   -->
-<!-- ![MyContextCarrier Demo](docs/assets/demo.gif)                            -->
+![MyContextCarrier Demo](docs/assets/demo.gif)
 
 ---
 
