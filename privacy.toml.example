@@ -1,0 +1,120 @@
+# MyContextPort — Privacy Rules Example
+#
+# Copy this file to your store directory as 'privacy.toml':
+#   cp privacy.toml.example ~/.mycontextport/privacy.toml
+#
+# Rules are evaluated top-to-bottom. The first rule that matches wins.
+# If no rule matches, the item is allowed through.
+#
+# Rule types:
+#   sensitivity   — matches the item's sensitivity classification
+#                   values: unknown, public, work, personal, health, financial
+#   source        — matches the collector that produced the item (e.g. "shell-history")
+#   url_pattern   — glob match on the item's URL or file path
+#   content       — substring match on the item's text content
+#   backend       — "cloud" or "local" (based on the model name pattern)
+#
+# Actions:
+#   allow   — pass the item to the AI model
+#   block   — suppress the item silently
+#
+# model_scope (optional):
+#   Glob pattern matched against the MCP client name.
+#   Omit to apply the rule to all models.
+#   Examples: "claude*", "gpt*", "cursor*"
+#
+# unknown_client_policy (optional, in [defaults] section):
+#   What to do when an unrecognised MCP client connects.
+#   "allow" (default) or "deny"
+
+# ---------------------------------------------------------------------------
+# Defaults
+# ---------------------------------------------------------------------------
+
+[defaults]
+unknown_client_policy = "deny"   # deny unrecognised MCP clients by default
+
+# ---------------------------------------------------------------------------
+# Example rules — uncomment and adapt as needed
+# ---------------------------------------------------------------------------
+
+# Block health and financial data from all AI models
+[[rules]]
+id = "block-health"
+rule_type = "sensitivity"
+pattern = "health"
+action = "block"
+
+[[rules]]
+id = "block-financial"
+rule_type = "sensitivity"
+pattern = "financial"
+action = "block"
+
+# Block health data only from cloud models (allow to local models)
+# [[rules]]
+# id = "block-health-from-cloud"
+# rule_type = "sensitivity"
+# pattern = "health"
+# action = "block"
+# model_scope = "claude*"
+
+# Block personal items from a specific model
+# [[rules]]
+# id = "block-personal-from-cursor"
+# rule_type = "sensitivity"
+# pattern = "personal"
+# action = "block"
+# model_scope = "cursor*"
+
+# Block shell history from all models
+# [[rules]]
+# id = "block-shell-history"
+# rule_type = "source"
+# pattern = "shell-history"
+# action = "block"
+
+# Block items containing sensitive keywords
+# [[rules]]
+# id = "block-passwords"
+# rule_type = "content"
+# pattern = "password"
+# action = "block"
+
+# [[rules]]
+# id = "block-api-keys"
+# rule_type = "content"
+# pattern = "api_key"
+# action = "block"
+
+# Allow everything else (implicit — no rule needed)
+
+# ---------------------------------------------------------------------------
+# Guardrails — safety checks on agent write-back operations
+# ---------------------------------------------------------------------------
+#
+# Triggers:
+#   writeback     — agent calls append_context
+#   threadcreate  — agent calls create_thread
+#
+# Actions:
+#   block                — silently prevent the operation
+#   redact               — strip the matched pattern from content before storing
+#   requireconfirmation  — return a structured error; agent must re-call to confirm
+#
+# Pattern: substring or glob (*) matched case-insensitively against content.
+
+# Prevent agents from storing raw API keys or tokens
+# [[guardrails]]
+# id = "no-secrets"
+# trigger = "writeback"
+# pattern = "*api_key*"
+# action = "block"
+# message = "API keys must not be stored in context."
+
+# [[guardrails]]
+# id = "confirm-large-writes"
+# trigger = "writeback"
+# pattern = "*CONFIDENTIAL*"
+# action = "requireconfirmation"
+# message = "Content marked CONFIDENTIAL — confirm before storing."
