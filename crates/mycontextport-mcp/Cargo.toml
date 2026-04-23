@@ -21,5 +21,6 @@ uuid = { workspace = true }
 chrono = { workspace = true }
 
 mycontextport-core = { path = "../mycontextport-core" }
+mycontextport-graph = { path = "../mycontextport-graph" }
 mycontextport-privacy = { path = "../mycontextport-privacy" }
 mycontextport-store = { path = "../mycontextport-store" }
