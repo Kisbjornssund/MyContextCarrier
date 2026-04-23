@@ -28,7 +28,7 @@ jobs:
 
       - name: Find changed collectors
         id: changed
-        uses: tj-actions/changed-files@v44
+        uses: tj-actions/changed-files@v47
         with:
           files: collectors/**
 
